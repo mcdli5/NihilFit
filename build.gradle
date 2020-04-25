@@ -143,9 +143,22 @@ reobf {
 build.dependsOn shadowJar
 build.dependsOn reobfShadowJar
 
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/mcdli5/${modFileName}")
+            credentials {
+                username = githubProperties['gpr.usr']
+                password = githubProperties['gpr.key']
+            }
+        }
+    }
     publications {
-        mavenJava(MavenPublication) {
+        gpr(MavenPublication) {
             artifact jar
         }
     }

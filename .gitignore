@@ -26,3 +26,6 @@ forge*changelog.txt
 
 # Leftover from data generation
 /src/main/generated/resources/.cache/
+
+# Secret!
+github.properties
