@@ -1,21 +1,21 @@
-package mcdli5.templatemod.setup;
+package mcdli5.exnihilo.setup;
 
 import com.tterrag.registrate.Registrate;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-import static mcdli5.templatemod.TemplateMod.MODID;
+import static mcdli5.exnihilo.ExNihilo.MODID;
 
 public class ModRegistrate {
     public static final Registrate REGISTRATE =
             Registrate.create(MODID);
             // TODO: Fix IconGroup
-            //.itemGroup(TemplateModItemGroup::new, "Template Mod");
+            //.itemGroup(ExNihiloItemGroup::new, "Ex Nihilo");
 
     public static void init() {}
 
-    private static class TemplateModItemGroup extends ItemGroup {
-        public TemplateModItemGroup() {
+    private static class ExNihiloItemGroup extends ItemGroup {
+        public ExNihiloItemGroup() {
             super(MODID);
         }
 

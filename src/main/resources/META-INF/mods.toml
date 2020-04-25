@@ -2,29 +2,29 @@ modLoader="javafml"
 loaderVersion="[31,)"
 
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="http://github.com/mcdli5/TemplateMod/issues"
+issueTrackerURL="http://github.com/mcdli5/ExNihilo/issues"
 
 [[mods]]
-modId="templatemod"
+modId="exnihilo"
 version="${version}"
-displayName="Template Mod"
+displayName="Ex Nihilo"
 # updateJSONURL=""
-displayURL="http://github.com/mcdli5/TemplateMod"
-logoFile="templatemod.png"
+displayURL="http://github.com/mcdli5/ExNihilo"
+logoFile="exnihilo.png"
 # credits=""
 authors="mcdli5"
 description='''
-Template Mod
+Ex Nihilo
 '''
 
-[[dependencies.templatemod]]
+[[dependencies.exnihilo]]
 modId="forge"
 mandatory=true
 versionRange="[31,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.templatemod]]
+[[dependencies.exnihilo]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.15.2]"

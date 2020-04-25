@@ -47,7 +47,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                templatemod {
+                exnihilo {
                     source sourceSets.main
                 }
             }
@@ -58,7 +58,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                templatemod {
+                exnihilo {
                     source sourceSets.main
                 }
             }
@@ -73,7 +73,7 @@ minecraft {
             environment 'target', 'fmluserdevdata'
 
             mods {
-                templatemod {
+                exnihilo {
                     source sourceSets.main
                 }
             }
@@ -133,7 +133,7 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shade]
-    relocate 'com.tterrag.registrate', 'mcdli5.templatemod.repack.registrate'
+    relocate 'com.tterrag.registrate', 'mcdli5.exnihilo.repack.registrate'
 }
 
 reobf {
