@@ -1,0 +1,152 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+configurations {
+    shade
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += "src/main/generated/resources"
+        }
+    }
+}
+
+// We use the version format MCVERSION-MAJOR.MINOR.PATCH
+version = minecraftVersion + '-' + modVersion
+group = modGroup
+archivesBaseName = modFileName
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: mcpMappingsChannel, version: mcpMappingsVersion
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                templatemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                templatemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', modId, '--all', '--output', file('src/main/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+
+            environment 'target', 'fmluserdevdata'
+
+            mods {
+                templatemod {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { // Registrate & TOP
+        url "http://maven.tterrag.com/"
+    }
+    maven { // JEI
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:' + minecraftVersion + '-' + forgeVersion
+
+    // Registrate
+    def registrate = "com.tterrag.registrate:Registrate:MC${registrateVersion}"
+    implementation fg.deobf(registrate)
+    shade registrate
+
+    // JEI
+    compileOnly fg.deobf("mezz.jei:jei-${jeiVersion}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jeiVersion}")
+
+    // TOP
+    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}:api")
+    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}")
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title"     : modId,
+            "Specification-Vendor"    : modGroup,
+            "Specification-Version"   : "1.0", // We are version 1 of ourselves
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : project.version,
+            "Implementation-Vendor"   : modGroup,
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+processResources {
+	inputs.property 'version', project.version
+
+	from(sourceSets.main.resources.srcDirs) {
+		include 'META-INF/mods.toml'
+		expand 'version': project.version
+	}
+}
+
+shadowJar {
+    configurations = [project.configurations.shade]
+    relocate 'com.tterrag.registrate', 'mcdli5.templatemod.repack.registrate'
+}
+
+reobf {
+    shadowJar {}
+}
+
+build.dependsOn shadowJar
+build.dependsOn reobfShadowJar
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+}

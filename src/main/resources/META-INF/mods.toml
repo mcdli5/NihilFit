@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="http://github.com/mcdli5/TemplateMod/issues"
+
+[[mods]]
+modId="templatemod"
+version="${version}"
+displayName="Template Mod"
+# updateJSONURL=""
+displayURL="http://github.com/mcdli5/TemplateMod"
+logoFile="templatemod.png"
+# credits=""
+authors="mcdli5"
+description='''
+Template Mod
+'''
+
+[[dependencies.templatemod]]
+modId="forge"
+mandatory=true
+versionRange="[31,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.templatemod]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.15.2]"
+ordering="NONE"
+side="BOTH"
