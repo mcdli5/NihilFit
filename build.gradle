@@ -136,12 +136,7 @@ shadowJar {
     relocate 'com.tterrag.registrate', 'mcdli5.exnihilo.repack.registrate'
 }
 
-reobf {
-    shadowJar {}
-}
-
 build.dependsOn shadowJar
-build.dependsOn reobfShadowJar
 
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
@@ -157,9 +152,12 @@ publishing {
             }
         }
     }
+
+    // Fix POM for jar, it must inform that it dependes on Registrate
     publications {
         gpr(MavenPublication) {
             artifact jar
+            artifact shadowJar
         }
     }
 }
