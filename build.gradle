@@ -100,11 +100,11 @@ dependencies {
     shade registrate
 
     // JEI
-    compileOnly fg.deobf("mezz.jei:jei-${jeiVersion}:api")
+    // compileOnly fg.deobf("mezz.jei:jei-${jeiVersion}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jeiVersion}")
 
     // TOP
-    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}:api")
+    // compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}:api")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}")
 }
 
