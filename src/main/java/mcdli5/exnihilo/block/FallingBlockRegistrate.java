@@ -1,4 +1,4 @@
-package mcdli5.exnihilo.block.fallingblock;
+package mcdli5.exnihilo.block;
 
 import com.tterrag.registrate.util.RegistryEntry;
 import net.minecraft.block.Block;

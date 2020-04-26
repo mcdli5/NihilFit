@@ -1,12 +1,12 @@
 package mcdli5.exnihilo.setup;
 
 import com.tterrag.registrate.Registrate;
-import mcdli5.exnihilo.block.fallingblock.FallingBlockRegistrate;
+import mcdli5.exnihilo.block.FallingBlockRegistrate;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 import static mcdli5.exnihilo.ExNihilo.MODID;
-import static mcdli5.exnihilo.block.fallingblock.FallingBlockRegistrate.DUSTBLOCK;
+import static mcdli5.exnihilo.block.FallingBlockRegistrate.DUSTBLOCK;
 
 public class ModRegistrate {
     public static final Registrate REGISTRATE =
