@@ -14,6 +14,6 @@ public class ExNihilo {
     public ExNihilo() {
         ModSetup.init();
         ModRegistrate.init();
-        LOGGER.debug("Hello");
+        LOGGER.debug("Hello from Ex Nihilo!");
     }
 }
