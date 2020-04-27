@@ -2,6 +2,7 @@ package mcdli5.exnihilo.item.hammer;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
@@ -19,5 +20,10 @@ public class HammerToolItem extends ToolItem {
 
     protected HammerToolItem(ItemTier tier) {
         super(1, -2.8F, tier, EFFECTIVE_ON, new Item.Properties().group(ITEM_GROUP));
+    }
+
+    @Override
+    public boolean canHarvestBlock(BlockState blockIn) {
+        return EFFECTIVE_ON.contains(blockIn.getBlock());
     }
 }

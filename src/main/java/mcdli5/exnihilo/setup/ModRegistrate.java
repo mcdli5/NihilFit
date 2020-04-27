@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import static mcdli5.exnihilo.ExNihilo.MOD_ID;
+import static mcdli5.exnihilo.ExNihilo.MODID;
 import static mcdli5.exnihilo.block.CrushedBlockRegistrate.DUST_BLOCK;
 
 public final class ModRegistrate {
-    public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(DUST_BLOCK.get());
@@ -21,7 +21,7 @@ public final class ModRegistrate {
     };
 
     public static final Registrate REGISTRATE =
-            Registrate.create(MOD_ID).itemGroup(NonNullSupplier.of(() -> ITEM_GROUP), "Ex Nihilo");
+            Registrate.create(MODID).itemGroup(NonNullSupplier.of(() -> ITEM_GROUP), "Ex Nihilo");
 
     public static void init() {
         CrushedBlockRegistrate.init();

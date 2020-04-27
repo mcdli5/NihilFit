@@ -6,10 +6,10 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(ExNihilo.MOD_ID)
+@Mod(ExNihilo.MODID)
 public class ExNihilo {
-    public static final String MOD_ID = "exnihilo";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final String MODID = "exnihilo";
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public ExNihilo() {
         ModSetup.init();
