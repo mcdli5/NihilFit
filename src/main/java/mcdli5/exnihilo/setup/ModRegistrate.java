@@ -1,29 +1,44 @@
 package mcdli5.exnihilo.setup;
 
 import com.tterrag.registrate.Registrate;
-import mcdli5.exnihilo.block.FallingBlockRegistrate;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import mcdli5.exnihilo.block.CrushedBlockRegistrate;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-import static mcdli5.exnihilo.ExNihilo.MODID;
-import static mcdli5.exnihilo.block.FallingBlockRegistrate.DUSTBLOCK;
+import javax.annotation.Nonnull;
 
-public class ModRegistrate {
-    public static final Registrate REGISTRATE =
-            Registrate.create(MODID).itemGroup(ExNihiloItemGroup::new, "Ex Nihilo");
+import static mcdli5.exnihilo.ExNihilo.MOD_ID;
+import static mcdli5.exnihilo.block.CrushedBlockRegistrate.DUST_BLOCK;
 
-    public static void init() {
-        FallingBlockRegistrate.init();
-    }
-
-    private static class ExNihiloItemGroup extends ItemGroup {
-        public ExNihiloItemGroup() {
-            super(MODID);
-        }
-
+public final class ModRegistrate {
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(DUSTBLOCK.get());
+            return new ItemStack(DUST_BLOCK.get());
         }
+    };
+
+    public static final Registrate REGISTRATE =
+            Registrate.create(MOD_ID).itemGroup(NonNullSupplier.of(() -> ITEM_GROUP), "Ex Nihilo");
+
+    public static void init() {
+        CrushedBlockRegistrate.init();
+    }
+
+    public static String buildFullName(String prefix, @Nonnull String name, String suffix) {
+        String fullName = "";
+
+        if (prefix != null && !prefix.isEmpty()) {
+            fullName += prefix.toLowerCase() + "_";
+        }
+
+        fullName += name.toLowerCase();
+
+        if (suffix != null && !suffix.isEmpty()) {
+            fullName += "_" + suffix.toLowerCase();
+        }
+
+        return fullName;
     }
 }
