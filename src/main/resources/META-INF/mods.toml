@@ -2,29 +2,29 @@ modLoader="javafml"
 loaderVersion="[31,)"
 
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="http://github.com/mcdli5/ExNihilo/issues"
+issueTrackerURL="http://github.com/mcdli5/NihilFit/issues"
 
 [[mods]]
-modId="exnihilo"
+modId="nihilfit"
 version="${version}"
-displayName="Ex Nihilo"
+displayName="Nihil Fit"
 # updateJSONURL=""
-displayURL="http://github.com/mcdli5/ExNihilo"
-logoFile="exnihilo.png"
+displayURL="http://github.com/mcdli5/NihilFit"
+logoFile="nihilfit.png"
 # credits=""
 authors="mcdli5"
 description='''
-Ex Nihilo
+Ex Nihilo Nihil Fit
 '''
 
-[[dependencies.exnihilo]]
+[[dependencies.nihilfit]]
 modId="forge"
 mandatory=true
 versionRange="[31,)"
 ordering="NONE"
 side="BOTH"
 
-[[dependencies.exnihilo]]
+[[dependencies.nihilfit]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.15.2]"
