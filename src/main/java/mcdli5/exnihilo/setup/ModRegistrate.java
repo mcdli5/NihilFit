@@ -3,6 +3,7 @@ package mcdli5.exnihilo.setup;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.exnihilo.block.CrushedBlockRegistrate;
+import mcdli5.exnihilo.item.hammer.HammerRegistrate;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -24,6 +25,7 @@ public final class ModRegistrate {
 
     public static void init() {
         CrushedBlockRegistrate.init();
+        HammerRegistrate.init();
     }
 
     public static String buildFullName(String prefix, @Nonnull String name, String suffix) {

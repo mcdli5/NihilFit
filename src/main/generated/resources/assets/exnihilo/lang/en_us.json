@@ -5,5 +5,10 @@
   "block.exnihilo.crushed_granite": "Crushed Granite",
   "block.exnihilo.crushed_netherrack": "Crushed Netherrack",
   "block.exnihilo.dust_block": "Dust Block",
+  "item.exnihilo.diamond_hammer": "Diamond Hammer",
+  "item.exnihilo.gold_hammer": "Gold Hammer",
+  "item.exnihilo.iron_hammer": "Iron Hammer",
+  "item.exnihilo.stone_hammer": "Stone Hammer",
+  "item.exnihilo.wood_hammer": "Wood Hammer",
   "itemGroup.exnihilo": "Ex Nihilo"
 }
