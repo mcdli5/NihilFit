@@ -7,7 +7,7 @@ Issues should be reported to the GitHub [issue tracker](https://github.com/mcdli
 
 Do you love Skyblocks? Do you hate not having the resources to do as you please? Then this is the mod for you!
 
-Nihil Fit is inspired by Ex Nihilo Creatio, a fork of Ex Nihilo Adscensio, both for 1.12. Ex Nihilo Adscensio was a continuation of the Ex Nihilo mod from 1.7.10, rewritten from the ground up.
+Nihil Fit is inspired by Ex Nihilo Creatio for 1.12, a fork of Ex Nihilo Adscensio for 1.10. Ex Nihilo Adscensio was a continuation of the Ex Nihilo mod from 1.7.10, rewritten from the ground up.
 
 We aim to mantain the same core concepts, but with a few twists if necessary.
 
