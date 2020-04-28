@@ -155,7 +155,9 @@ build.dependsOn reobfShadowJar
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 
-publish.dependsOn build
+publish.dependsOn shadowJar
+publishToMavenLocal.dependsOn shadowJar
+
 publishing {
     repositories {
         maven {
