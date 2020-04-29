@@ -2,8 +2,8 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            name = 'sonatype'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
         jcenter()
         mavenCentral()
@@ -15,13 +15,21 @@ buildscript {
 }
 
 plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
-    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
 
 configurations {
     shade
@@ -30,8 +38,8 @@ configurations {
 sourceSets {
     main {
         resources {
-            srcDirs += "src/main/generated/resources"
-            exclude ".cache"
+            srcDirs += 'src/main/generated/resources'
+            exclude '.cache'
         }
     }
 }
@@ -89,11 +97,11 @@ minecraft {
 
 repositories {
     maven { // Registrate & TOP
-        url "http://maven.tterrag.com/"
+        url 'http://maven.tterrag.com/'
     }
     maven { // JEI
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        name = 'Progwml6 maven'
+        url = 'https://dvs1.progwml6.com/files/maven/'
     }
 }
 
@@ -117,16 +125,15 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title"     : modId,
-            "Specification-Vendor"    : modGroup,
-            "Specification-Version"   : "1.0", // We are version 1 of ourselves
-            "Implementation-Title"    : project.name,
-            "Implementation-Version"  : project.version,
-            "Implementation-Vendor"   : modGroup,
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            'Specification-Title'     : modId,
+            'Specification-Vendor'    : modGroup,
+            'Specification-Version'   : '1.0', // We are version 1 of ourselves
+            'Implementation-Title'    : project.name,
+            'Implementation-Version'  : project.version,
+            'Implementation-Vendor'   : modGroup,
+            'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    classifier "nodep"
 }
 
 processResources {
@@ -153,7 +160,7 @@ reobfShadowJar.mustRunAfter shadowJar
 build.dependsOn reobfShadowJar
 
 def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+githubProperties.load(new FileInputStream(rootProject.file('github.properties')))
 
 publish.dependsOn shadowJar
 publishToMavenLocal.dependsOn shadowJar
@@ -161,7 +168,7 @@ publishToMavenLocal.dependsOn shadowJar
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
+            name = 'GitHubPackages'
             url = uri("https://maven.pkg.github.com/mcdli5/${modFileName}")
             credentials {
                 username = githubProperties['gpr.usr']
@@ -180,7 +187,8 @@ publishing {
 }
 
 def curseProperties = new Properties()
-curseProperties.load(new FileInputStream(rootProject.file("curse.properties")))
+curseProperties.load(new FileInputStream(rootProject.file('curse.properties')))
+
 curseforge {
   apiKey = curseProperties['curse.key']
   project {
@@ -190,7 +198,7 @@ curseforge {
     addGameVersion minecraftVersion
 
     mainArtifact(shadowJar) {
-      displayName = "$modDisplayName: $version"
+      displayName = "${modDisplayName}: ${version}"
     }
   }
 }
