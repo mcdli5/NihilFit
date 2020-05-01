@@ -1,4 +1,4 @@
-# Nihil Fit  [![Curseforge](http://cf.way2muchnoise.eu/378450.svg "Nihil Fit")](https://www.curseforge.com/minecraft/mc-mods/nihilfit)
+# Nihil Fit
 
 *Ex nihilo nihil fit* - "Nothing comes from nothing"
 
@@ -10,6 +10,10 @@ Do you love Skyblocks? Do you hate not having the resources to do as you please?
 Nihil Fit is inspired by Ex Nihilo Creatio for 1.12, a fork of Ex Nihilo Adscensio for 1.10. Ex Nihilo Adscensio was a continuation of the Ex Nihilo mod from 1.7.10, rewritten from the ground up.
 
 We aim to mantain the same core concepts, but with a few twists if necessary.
+
+## [0.1.4] - 2020-04-30
+### Added
+- Recipes for Hammers
 
 ## [0.1.3] - 2020-04-28
 ### Added

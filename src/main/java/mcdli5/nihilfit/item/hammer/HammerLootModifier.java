@@ -1,7 +1,6 @@
 package mcdli5.nihilfit.item.hammer;
 
 import com.google.gson.JsonObject;
-import mcdli5.nihilfit.block.CrushedBlockRegistrate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static mcdli5.nihilfit.NihilFit.MODID;
+import static mcdli5.nihilfit.block.Blocks.*;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {
@@ -44,17 +44,17 @@ public final class HammerLootModifier {
             } else if (itemStack.getItem() == Items.GRAVEL) {
                 return new ItemStack(Items.SAND, count);
             } else if (itemStack.getItem() == Items.SAND) {
-                return new ItemStack(CrushedBlockRegistrate.DUST_BLOCK.get(), count);
-            } else if (itemStack.getItem() == Items.NETHERRACK) {
-                return new ItemStack(CrushedBlockRegistrate.CRUSHED_NETHERRACK.get(), count);
-            } else if (itemStack.getItem() == Items.END_STONE) {
-                return new ItemStack(CrushedBlockRegistrate.CRUSHED_ENDSTONE.get(), count);
+                return new ItemStack(CRUSHEDBLOCK_DUST.get(), count);
             } else if (itemStack.getItem() == Items.ANDESITE) {
-                return new ItemStack(CrushedBlockRegistrate.CRUSHED_ANDESITE.get(), count);
+                return new ItemStack(CRUSHEDBLOCK_ANDESITE.get(), count);
             } else if (itemStack.getItem() == Items.DIORITE) {
-                return new ItemStack(CrushedBlockRegistrate.CRUSHED_DIORITE.get(), count);
+                return new ItemStack(CRUSHEDBLOCK_DIORITE.get(), count);
+            } else if (itemStack.getItem() == Items.END_STONE) {
+                return new ItemStack(CRUSHEDBLOCK_END_STONE.get(), count);
             } else if (itemStack.getItem() == Items.GRANITE) {
-                return new ItemStack(CrushedBlockRegistrate.CRUSHED_GRANITE.get(), count);
+                return new ItemStack(CRUSHEDBLOCK_GRANITE.get(), count);
+            } else if (itemStack.getItem() == Items.NETHERRACK) {
+                return new ItemStack(CRUSHEDBLOCK_NETHERRACK.get(), count);
             } else {
                 return itemStack;
             }

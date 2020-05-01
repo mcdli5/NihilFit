@@ -10,9 +10,9 @@ import net.minecraft.item.ToolItem;
 
 import java.util.Set;
 
-import static mcdli5.nihilfit.setup.ModRegistrate.ITEM_GROUP;
+import static mcdli5.nihilfit.NihilFit.ITEM_GROUP;
 
-public class HammerToolItem extends ToolItem {
+public final class HammerToolItem extends ToolItem {
     public static final Set<Block> EFFECTIVE_ON = ImmutableSet.of(
             Blocks.COBBLESTONE, Blocks.GRAVEL, Blocks.SAND, Blocks.NETHERRACK,
             Blocks.END_STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE

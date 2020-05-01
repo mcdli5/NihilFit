@@ -6,31 +6,31 @@
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "item": "nihilfit:wood_hammer"
+            "item": "nihilfit:hammer_diamond"
           }
         },
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "item": "nihilfit:stone_hammer"
+            "item": "nihilfit:hammer_gold"
           }
         },
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "item": "nihilfit:iron_hammer"
+            "item": "nihilfit:hammer_iron"
           }
         },
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "item": "nihilfit:gold_hammer"
+            "item": "nihilfit:hammer_stone"
           }
         },
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "item": "nihilfit:diamond_hammer"
+            "item": "nihilfit:hammer_wood"
           }
         }
       ]
