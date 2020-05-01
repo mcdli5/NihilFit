@@ -1,0 +1,6 @@
+{
+  "parent": "nihilfit:block/crucible_template_block",
+  "textures": {
+    "texture": "block/bricks"
+  }
+}
