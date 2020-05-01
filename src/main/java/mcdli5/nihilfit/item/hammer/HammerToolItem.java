@@ -14,8 +14,8 @@ import static mcdli5.nihilfit.NihilFit.ITEM_GROUP;
 
 public final class HammerToolItem extends ToolItem {
     public static final Set<Block> EFFECTIVE_ON = ImmutableSet.of(
-            Blocks.COBBLESTONE, Blocks.GRAVEL, Blocks.SAND, Blocks.NETHERRACK,
-            Blocks.END_STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE
+        Blocks.COBBLESTONE, Blocks.GRAVEL, Blocks.SAND, Blocks.NETHERRACK,
+        Blocks.END_STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE
     );
 
     protected HammerToolItem(ItemTier tier) {

@@ -26,9 +26,9 @@ public final class NihilFit {
     };
 
     private static final NonNullLazyValue<Registrate> REGISTRATE = new NonNullLazyValue<Registrate>(
-            () -> Registrate
-                    .create(MODID)
-                    .itemGroup(NonNullSupplier.of(() -> ITEM_GROUP), "Nihil Fit")
+        () -> Registrate
+            .create(MODID)
+            .itemGroup(NonNullSupplier.of(() -> ITEM_GROUP), "Nihil Fit")
     );
 
     public NihilFit() {

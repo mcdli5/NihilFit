@@ -29,17 +29,17 @@ public final class HammerRegistrate {
         String criterion = "has_" + itemToBeMadeOf.toString();
 
         return NihilFit.registrate()
-                .item(registryName, b -> new HammerToolItem(itemTier))
-                .recipe((ctx, prov) -> ShapedRecipeBuilder
-                        .shapedRecipe(ctx.getEntry())
-                        .patternLine(" X ")
-                        .patternLine(" #X")
-                        .patternLine("#  ")
-                        .key('#', Items.STICK)
-                        .key('X', itemToBeMadeOf)
-                        .addCriterion(criterion, prov.hasItem(itemToBeMadeOf))
-                        .build(prov))
-                .lang(lang)
-                .register();
+            .item(registryName, b -> new HammerToolItem(itemTier))
+            .recipe((ctx, prov) -> ShapedRecipeBuilder
+                .shapedRecipe(ctx.getEntry())
+                .patternLine(" X ")
+                .patternLine(" #X")
+                .patternLine("#  ")
+                .key('#', Items.STICK)
+                .key('X', itemToBeMadeOf)
+                .addCriterion(criterion, prov.hasItem(itemToBeMadeOf))
+                .build(prov))
+            .lang(lang)
+            .register();
     }
 }

@@ -22,12 +22,12 @@ import static mcdli5.nihilfit.block.Blocks.*;
 public final class HammerLootModifier {
     @SubscribeEvent
     public static void registerModifierSerializers(
-            @Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+        @Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
 
         event.getRegistry().register(
-                new LootModifier.Serializer().setRegistryName(
-                        new ResourceLocation(MODID, "broken_by_hammer")
-                )
+            new LootModifier.Serializer().setRegistryName(
+                new ResourceLocation(MODID, "broken_by_hammer")
+            )
         );
     }
 

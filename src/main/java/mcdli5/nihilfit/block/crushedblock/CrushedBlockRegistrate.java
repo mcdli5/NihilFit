@@ -16,13 +16,13 @@ public final class CrushedBlockRegistrate {
         String lang = name.equals("Dust") ? (name + " Block") : ("Crushed " + name);
 
         return NihilFit.registrate()
-                .block(registryName, Material.SAND, FallingBlock::new)
-                .properties(properties -> properties
-                        .hardnessAndResistance(0.7F)
-                        .sound(soundType)
-                        .harvestTool(ToolType.SHOVEL))
-                .lang(lang)
-                .item().build()
-                .register();
+            .block(registryName, Material.SAND, FallingBlock::new)
+            .properties(properties -> properties
+                .hardnessAndResistance(0.7F)
+                .sound(soundType)
+                .harvestTool(ToolType.SHOVEL))
+            .lang(lang)
+            .item().build()
+            .register();
     }
 }
