@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.block;
+package mcdli5.nihilfit.init;
 
 import com.tterrag.registrate.util.RegistryEntry;
 import mcdli5.nihilfit.block.crucible.CrucibleBaseBlock;
@@ -7,7 +7,7 @@ import net.minecraft.block.FallingBlock;
 import static mcdli5.nihilfit.block.crucible.CrucibleRegistrate.registerCrucible;
 import static mcdli5.nihilfit.block.crushedblock.CrushedBlockRegistrate.registerCrushedBlock;
 
-public final class Blocks {
+public final class ModBlocks {
     // Crushed Blocks
     public static final RegistryEntry<FallingBlock> CRUSHEDBLOCK_ANDESITE = registerCrushedBlock("Andesite");
     public static final RegistryEntry<FallingBlock> CRUSHEDBLOCK_DIORITE = registerCrushedBlock("Diorite");

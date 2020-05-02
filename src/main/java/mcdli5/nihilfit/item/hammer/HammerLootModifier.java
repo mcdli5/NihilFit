@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static mcdli5.nihilfit.NihilFit.MODID;
-import static mcdli5.nihilfit.block.Blocks.*;
+import static mcdli5.nihilfit.init.ModBlocks.*;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {

@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_brick": {
+    "has_stone_brick": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:brick"
+            "item": "minecraft:stone_bricks"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_brick",
+      "has_stone_brick",
       "has_the_recipe"
     ]
   ]
