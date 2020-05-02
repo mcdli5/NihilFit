@@ -30,6 +30,9 @@ public final class HammerRegistrate {
 
         return NihilFit.registrate()
             .item(registryName, b -> new HammerToolItem(itemTier))
+            .model((ctx, prov) -> prov
+                .withExistingParent(ctx.getName(), "item/handheld")
+                .texture("layer0", prov.modLoc("item/" + ctx.getName())))
             .recipe((ctx, prov) -> ShapedRecipeBuilder
                 .shapedRecipe(ctx.getEntry())
                 .patternLine(" X ")
