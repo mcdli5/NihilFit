@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity {
     private static final int CAPACITY = 4;
     private final ItemStackHandler itemStackHandler;
-    private final MyFluidTank fluidTank;
+    private final CrucibleFluidTank fluidTank;
     private int solidAmount = 0;
     private int amountUsed = 0;
     private int ticksSinceLast = 0;
@@ -66,11 +66,11 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         };
     }
 
-    private MyFluidTank createFluidTank() {
+    private CrucibleFluidTank createFluidTank() {
         int fluidCapacity = CAPACITY * FluidAttributes.BUCKET_VOLUME;
         FluidStack lava = new FluidStack(Fluids.LAVA, 1000);
 
-        return new MyFluidTank(fluidCapacity, lava::isFluidEqual);
+        return new CrucibleFluidTank(fluidCapacity, lava::isFluidEqual);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
 
     private int getHeatRate() {
         final BlockPos posBelowBLock = pos.add(0, -1, 0);
-        final IForgeBlockState stateBelow = getWorld().getBlockState(posBelowBLock);
+        final IForgeBlockState stateBelow = world.getBlockState(posBelowBLock);
 
         // TODO: Base this on a HeatRegistry;
         // TODO: Change back to 3 before next upload to Curse;
@@ -155,8 +155,8 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         return super.getCapability(cap, side);
     }
 
-    private class MyFluidTank extends FluidTank {
-        public MyFluidTank(int capacity, Predicate<FluidStack> validator) {
+    private class CrucibleFluidTank extends FluidTank {
+        public CrucibleFluidTank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);
         }
 

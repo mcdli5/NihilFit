@@ -20,13 +20,11 @@ public final class CrucibleRegistrate {
     public static RegistryEntry<CrucibleBaseBlock> registerCrucible() {
         return NihilFit.registrate()
             .block("crucible", Material.ROCK, CrucibleBaseBlock::new)
-            .properties(properties -> properties
-                .hardnessAndResistance(2.0f)
-                .notSolid())
+            .properties(properties -> properties.hardnessAndResistance(2.0f))
             .blockstate((ctx, prov) -> prov.simpleBlock(
                 ctx.getEntry(),
                 prov.models().getBuilder(ctx.getName())
-                    .parent(prov.models().getExistingFile(prov.modLoc("block/crucible_template_block")))
+                    .parent(prov.models().getExistingFile(prov.modLoc("block/crucible_template")))
                     .texture("texture", prov.mcLoc("block/stone_bricks"))))
             .item().build()
             .recipe((ctx, prov) -> ShapedRecipeBuilder
