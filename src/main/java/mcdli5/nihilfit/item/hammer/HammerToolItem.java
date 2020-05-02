@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.ToolItem;
+import net.minecraftforge.common.ToolType;
 
 import java.util.Set;
 
@@ -19,7 +20,9 @@ public final class HammerToolItem extends ToolItem {
     );
 
     protected HammerToolItem(ItemTier tier) {
-        super(1, -2.8F, tier, EFFECTIVE_ON, new Item.Properties().group(ITEM_GROUP));
+        super(1, -2.8F, tier, EFFECTIVE_ON,
+            new Item.Properties().group(ITEM_GROUP).addToolType(ToolType.get("hammer"), tier.getHarvestLevel())
+        );
     }
 
     @Override
