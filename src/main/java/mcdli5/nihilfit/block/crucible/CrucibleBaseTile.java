@@ -1,6 +1,7 @@
 package mcdli5.nihilfit.block.crucible;
 
 import mcdli5.nihilfit.init.ModTiles;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.extensions.IForgeBlockState;
 import net.minecraftforge.common.util.LazyOptional;
@@ -25,12 +27,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
+import static java.lang.Math.round;
+
 public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity {
     private static final int CAPACITY = 4;
-    private final ItemStackHandler itemStackHandler;
-    private final CrucibleFluidTank fluidTank;
+    protected final ItemStackHandler itemStackHandler;
+    protected final CrucibleFluidTank fluidTank;
     private int solidAmount = 0;
-    private int amountUsed = 0;
     private int ticksSinceLast = 0;
     private int heatRate = 0;
 
@@ -55,7 +58,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
 
             @Override
             public int getSlotLimit(int slot) {
-                return CAPACITY;
+                return (solidAmount > 0) ? CAPACITY - 1 : CAPACITY;
             }
 
             @Override
@@ -81,15 +84,19 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
             ticksSinceLast = 0;
 
             heatRate = getHeatRate();
-            if (heatRate <= 0) return;
+            if (heatRate <= 0) {
+                setContentLevel();
+                return;
+            }
 
             if (solidAmount <= 0) {
-                if (amountUsed >= 250) {
+                if (!itemStackHandler.getStackInSlot(0).isEmpty()) {
                     itemStackHandler.getStackInSlot(0).shrink(1);
-                    amountUsed = 0;
+                    solidAmount = 250;
+                } else {
+                    setContentLevel();
+                    return;
                 }
-                if (itemStackHandler.getStackInSlot(0).isEmpty()) return;
-                solidAmount = 250;
             }
 
             // Never take more than we have left
@@ -101,8 +108,9 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
                 FluidStack toFill = new FluidStack(Fluids.LAVA, heatRate);
                 int filled = fluidTank.fillInternal(toFill, IFluidHandler.FluidAction.EXECUTE);
                 solidAmount -= filled;
-                amountUsed += filled;
             }
+
+            setContentLevel();
         }
     }
 
@@ -111,10 +119,37 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         final IForgeBlockState stateBelow = world.getBlockState(posBelowBLock);
 
         // TODO: Base this on a HeatRegistry;
-        // TODO: Change back to 3 before next upload to Curse;
-        if (stateBelow == Blocks.TORCH.getDefaultState()) return 25;
+        if (stateBelow == Blocks.TORCH.getDefaultState()) return 3;
+        if (stateBelow == Blocks.LAVA.getDefaultState()) return 6;
 
         return 0;
+    }
+
+    private void setContentLevel() {
+        float items = Math.min((itemStackHandler.getStackInSlot(0).getCount() * 3) + (solidAmount / (250/3.0F)), 12.0F);
+        float fluid = fluidTank.getFluidAmount() / (1000/3.0F);
+
+        Boolean is_fluid = (fluid >= items);
+        int roundedResult = MathHelper.clamp(round(Math.max(items, fluid)), 1, 12);
+        int level = (items == 0 && fluid == 0) ? 0 : roundedResult;
+
+        BlockState blockState = this.getBlockState();
+        world.setBlockState(pos, blockState
+            .with(CrucibleBaseBlock.LEVEL, level)
+            .with(CrucibleBaseBlock.LIGHT_LEVEL, getLightLevel())
+            .with(CrucibleBaseBlock.IS_CONTENT_FLUID, is_fluid), 2);
+        world.updateComparatorOutputLevel(pos, blockState.getBlock());
+    }
+
+    private int getLightLevel() {
+        FluidStack fluidStack = fluidTank.getFluid();
+
+        if (!fluidStack.isEmpty()) {
+            FluidAttributes fluidAttributes = fluidStack.getFluid().getAttributes();
+            return Math.max(round((fluidStack.getAmount() / 4000.0F) * fluidAttributes.getLuminosity(fluidStack)), 1);
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -123,7 +158,6 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         fluidTank.readFromNBT(compoundNBT);
 
         solidAmount = compoundNBT.getInt("solidAmount");
-        amountUsed = compoundNBT.getInt("amountUsed");
         heatRate = compoundNBT.getInt("heatRate");
 
         super.read(compoundNBT);
@@ -135,7 +169,6 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         fluidTank.writeToNBT(compoundNBT);
 
         compoundNBT.putInt("solidAmount", solidAmount);
-        compoundNBT.putInt("amountUsed", amountUsed);
         compoundNBT.putInt("heatRate", heatRate);
 
         return super.write(compoundNBT);
@@ -155,7 +188,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         return super.getCapability(cap, side);
     }
 
-    private class CrucibleFluidTank extends FluidTank {
+    class CrucibleFluidTank extends FluidTank {
         public CrucibleFluidTank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);
         }
