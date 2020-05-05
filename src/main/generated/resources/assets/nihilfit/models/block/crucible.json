@@ -1,5 +1,5 @@
 {
-  "parent": "nihilfit:block/crucible_template_level11",
+  "parent": "nihilfit:block/crucible_template",
   "textures": {
     "texture": "block/stone_bricks"
   }

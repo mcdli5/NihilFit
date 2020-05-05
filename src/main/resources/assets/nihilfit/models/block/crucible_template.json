@@ -1,4 +1,5 @@
 {
+  "loader": "nihilfit:crucible_loader",
   "parent": "block/block",
   "ambientocclusion": false,
   "textures": {

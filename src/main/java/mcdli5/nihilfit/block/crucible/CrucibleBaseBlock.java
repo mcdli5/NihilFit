@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPlaySoundEffectPacket;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
@@ -29,9 +28,7 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nullable;
 
 public class CrucibleBaseBlock extends ContainerBlock {
-    public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 12);
     public static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
-    public static final BooleanProperty IS_CONTENT_FLUID = BooleanProperty.create("is_content_fluid");
 
     private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
@@ -49,17 +46,13 @@ public class CrucibleBaseBlock extends ContainerBlock {
         super(builder.hardnessAndResistance(2.0f));
 
         this.setDefaultState(this.getDefaultState()
-            .with(LEVEL, 0)
             .with(LIGHT_LEVEL, 0)
-            .with(IS_CONTENT_FLUID, false)
         );
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL);
         builder.add(LIGHT_LEVEL);
-        builder.add(IS_CONTENT_FLUID);
         super.fillStateContainer(builder);
     }
 
