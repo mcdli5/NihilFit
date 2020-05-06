@@ -7,7 +7,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 
-public final class CrushedBlockRegistrate {
+public final class CrushedBlockSetup {
     public static RegistryEntry<FallingBlock> registerCrushedBlock(String name) {
         String registryName = "crushedblock_" + name.toLowerCase().replace(' ', '_');
 

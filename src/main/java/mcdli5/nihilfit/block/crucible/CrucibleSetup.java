@@ -3,13 +3,14 @@ package mcdli5.nihilfit.block.crucible;
 import com.tterrag.registrate.util.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.nihilfit.NihilFit;
-import mcdli5.nihilfit.init.ModBlocks;
+import mcdli5.nihilfit.setup.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 
-public final class CrucibleRegistrate {
+public final class CrucibleSetup {
+    // TODO: This need some refactor to avoid duplication
     public static RegistryEntry<CrucibleStoneBlock> registerStoneCrucible() {
         return NihilFit.registrate()
             .block("crucible_stone", Material.ROCK, CrucibleStoneBlock::new)

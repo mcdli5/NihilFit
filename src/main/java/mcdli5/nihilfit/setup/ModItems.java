@@ -1,9 +1,9 @@
-package mcdli5.nihilfit.init;
+package mcdli5.nihilfit.setup;
 
 import com.tterrag.registrate.util.RegistryEntry;
-import mcdli5.nihilfit.item.hammer.HammerToolItem;
+import mcdli5.nihilfit.item.tool.hammer.HammerToolItem;
 
-import static mcdli5.nihilfit.item.hammer.HammerRegistrate.registerHammer;
+import static mcdli5.nihilfit.item.tool.hammer.HammerSetup.registerHammer;
 
 public final class ModItems {
     // Hammers
@@ -13,6 +13,6 @@ public final class ModItems {
     public static final RegistryEntry<HammerToolItem> HAMMER_STONE = registerHammer("Stone");
     public static final RegistryEntry<HammerToolItem> HAMMER_WOOD = registerHammer("Wood");
 
-    public static void init() {
+    public static void setup() {
     }
 }

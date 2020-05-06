@@ -3,9 +3,9 @@ package mcdli5.nihilfit;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.NonNullLazyValue;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import mcdli5.nihilfit.init.ModBlocks;
-import mcdli5.nihilfit.init.ModItems;
-import mcdli5.nihilfit.init.ModTiles;
+import mcdli5.nihilfit.setup.ModBlocks;
+import mcdli5.nihilfit.setup.ModItems;
+import mcdli5.nihilfit.setup.ModTiles;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -34,9 +34,9 @@ public final class NihilFit {
         // TODO: Remove unnecessary usages for release
         LOGGER.debug("Hello from Nihil Fit!");
 
-        ModBlocks.init();
-        ModItems.init();
-        ModTiles.init();
+        ModBlocks.setup();
+        ModItems.setup();
+        ModTiles.setup();
     }
 
     public static Registrate registrate() {

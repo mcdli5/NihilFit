@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.hammer;
+package mcdli5.nihilfit.item.tool.hammer;
 
 import com.tterrag.registrate.util.RegistryEntry;
 import mcdli5.nihilfit.NihilFit;
@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
 import net.minecraft.item.Items;
 
-public final class HammerRegistrate {
+public final class HammerSetup {
     public static RegistryEntry<HammerToolItem> registerHammer(String name) {
         switch (name) {
             case "Diamond":

@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.hammer;
+package mcdli5.nihilfit.item.tool.hammer;
 
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static mcdli5.nihilfit.NihilFit.MODID;
-import static mcdli5.nihilfit.init.ModBlocks.*;
+import static mcdli5.nihilfit.setup.ModBlocks.*;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {

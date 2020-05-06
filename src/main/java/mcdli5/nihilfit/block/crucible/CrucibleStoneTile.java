@@ -1,6 +1,6 @@
 package mcdli5.nihilfit.block.crucible;
 
-import mcdli5.nihilfit.init.ModTiles;
+import mcdli5.nihilfit.setup.ModTiles;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;

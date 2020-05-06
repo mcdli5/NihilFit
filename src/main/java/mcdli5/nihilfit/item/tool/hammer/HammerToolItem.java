@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.hammer;
+package mcdli5.nihilfit.item.tool.hammer;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
