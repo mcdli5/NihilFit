@@ -10,6 +10,6 @@ public final class ModGroup extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.CRUSHEDBLOCK_DUST.get());
+        return new ItemStack(ModItems.HAMMER_DIAMOND.get());
     }
 }
