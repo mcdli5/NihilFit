@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "B B",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:oak_log"
+    }
+  },
+  "result": {
+    "item": "nihilfit:crucible_wood"
+  }
+}

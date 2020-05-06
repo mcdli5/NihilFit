@@ -11,6 +11,13 @@ Nihil Fit is inspired by Ex Nihilo Creatio for 1.12, a fork of Ex Nihilo Adscens
 
 We aim to mantain the same core concepts, but with a few twists if necessary.
 
+## [0.2.4] - 2020-05-05
+### Added
+- Stone Crucible: takes cobblestone and produces lava, provided it has lava or a torch below
+- Wood Crucible: takes oak saplings and produces water, provided it has a torch below
+### Fixed
+- Hammers are now rendered correctly in hand
+
 ## [0.1.4] - 2020-04-30
 ### Added
 - Recipes for Hammers
