@@ -25,9 +25,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.items.IItemHandler;
 
-import javax.annotation.Nullable;
-
-public class CrucibleBaseBlock extends ContainerBlock {
+public abstract class CrucibleBaseBlock extends ContainerBlock {
     public static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
 
     private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
@@ -59,12 +57,6 @@ public class CrucibleBaseBlock extends ContainerBlock {
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new CrucibleBaseTile();
     }
 
     @SuppressWarnings("deprecation")

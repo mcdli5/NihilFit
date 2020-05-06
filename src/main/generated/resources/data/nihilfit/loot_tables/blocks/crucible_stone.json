@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "nihilfit:crucible"
+          "name": "nihilfit:crucible_stone"
         }
       ],
       "conditions": [

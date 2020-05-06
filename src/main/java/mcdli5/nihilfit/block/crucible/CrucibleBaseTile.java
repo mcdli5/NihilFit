@@ -1,18 +1,15 @@
 package mcdli5.nihilfit.block.crucible;
 
-import mcdli5.nihilfit.init.ModTiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -38,12 +35,14 @@ import java.util.function.Predicate;
 
 import static java.lang.Math.round;
 
-public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity {
+public abstract class CrucibleBaseTile extends TileEntity implements ITickableTileEntity {
     private static final int CAPACITY = 4;
 
     public static final ModelProperty<Integer> LEVEL = new ModelProperty<>();
     public static final ModelProperty<BlockState> CONTENT = new ModelProperty<>();
 
+    protected final ItemStack validItemStack;
+    protected final FluidStack validFluidStack;
     protected final ItemStackHandler itemStackHandler;
     protected final CrucibleFluidTank fluidTank;
 
@@ -54,8 +53,10 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
     private int amountUsed = 0;
     private int ticksSinceLast = 0;
 
-    public CrucibleBaseTile() {
-        super(ModTiles.CRUCIBLE.get());
+    public CrucibleBaseTile(TileEntityType<?> tileEntityTypeIn, ItemStack validItemStack, FluidStack validFluidStack) {
+        super(tileEntityTypeIn);
+        this.validItemStack = validItemStack;
+        this.validFluidStack = validFluidStack;
         itemStackHandler = createItemStackHandler();
         fluidTank = createFluidTank();
     }
@@ -64,7 +65,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         return new ItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return stack.isItemEqual(Items.COBBLESTONE.getDefaultInstance());
+                return stack.isItemEqual(validItemStack);
             }
 
             @Nonnull
@@ -88,9 +89,8 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
 
     private CrucibleFluidTank createFluidTank() {
         int fluidCapacity = CAPACITY * FluidAttributes.BUCKET_VOLUME;
-        FluidStack lava = new FluidStack(Fluids.LAVA, 1000);
 
-        return new CrucibleFluidTank(fluidCapacity, lava::isFluidEqual);
+        return new CrucibleFluidTank(fluidCapacity, validFluidStack::isFluidEqual);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
                 heatRate = solidAmount;
             }
 
-            FluidStack toFill = new FluidStack(Fluids.LAVA, heatRate);
+            FluidStack toFill = new FluidStack(validFluidStack.getFluid(), heatRate);
             int filled = fluidTank.fillInternal(toFill, IFluidHandler.FluidAction.EXECUTE);
             solidAmount -= filled;
             amountUsed += filled;
@@ -134,16 +134,12 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
         }
     }
 
-    private int getHeatRate() {
+    protected IForgeBlockState getStateBelow() {
         final BlockPos posBelowBLock = pos.add(0, -1, 0);
-        final IForgeBlockState stateBelow = world.getBlockState(posBelowBLock);
-
-        // TODO: Base this on a HeatRegistry;
-        if (stateBelow == Blocks.TORCH.getDefaultState()) return 3;
-        if (stateBelow == Blocks.LAVA.getDefaultState()) return 6;
-
-        return 0;
+        return world.getBlockState(posBelowBLock);
     }
+
+    protected abstract int getHeatRate();
 
     private void setContentLevel() {
         float items = itemStackHandler.getStackInSlot(0).getCount() * 3.0f;

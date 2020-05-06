@@ -1,10 +1,12 @@
 package mcdli5.nihilfit.init;
 
 import com.tterrag.registrate.util.RegistryEntry;
-import mcdli5.nihilfit.block.crucible.CrucibleBaseBlock;
+import mcdli5.nihilfit.block.crucible.CrucibleStoneBlock;
+import mcdli5.nihilfit.block.crucible.CrucibleWoodBlock;
 import net.minecraft.block.FallingBlock;
 
-import static mcdli5.nihilfit.block.crucible.CrucibleRegistrate.registerCrucible;
+import static mcdli5.nihilfit.block.crucible.CrucibleRegistrate.registerStoneCrucible;
+import static mcdli5.nihilfit.block.crucible.CrucibleRegistrate.registerWoodCrucible;
 import static mcdli5.nihilfit.block.crushedblock.CrushedBlockRegistrate.registerCrushedBlock;
 
 public final class ModBlocks {
@@ -17,7 +19,8 @@ public final class ModBlocks {
     public static final RegistryEntry<FallingBlock> CRUSHEDBLOCK_NETHERRACK = registerCrushedBlock("Netherrack");
 
     // Crucibles
-    public static final RegistryEntry<CrucibleBaseBlock> CRUCIBLE = registerCrucible();
+    public static final RegistryEntry<CrucibleStoneBlock> CRUCIBLE_STONE = registerStoneCrucible();
+    public static final RegistryEntry<CrucibleWoodBlock> CRUCIBLE_WOOD = registerWoodCrucible();
 
     public static void init() {
     }

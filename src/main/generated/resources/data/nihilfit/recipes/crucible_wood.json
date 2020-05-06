@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "item": "minecraft:stone_bricks"
+      "item": "minecraft:oak_log"
     }
   },
   "result": {
-    "item": "nihilfit:crucible"
+    "item": "nihilfit:crucible_wood"
   }
 }
