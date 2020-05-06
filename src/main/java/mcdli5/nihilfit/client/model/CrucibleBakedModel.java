@@ -47,22 +47,21 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
 
         if (level != null && level > 0) {
             TextureAtlasSprite texture = this.getContentModel(content).getParticleTexture();
+            List<BakedQuad> contentQuads = new ArrayList<>();
 
-            List<BakedQuad> quads = new ArrayList<>();
+            double minY = 0.25;
+            double maxY = minY + (level * 0.0625);
+            double min = 0.125;
+            double max = 0.875;
 
-            double minY = 4 * .0625;
-            double maxY = minY + (level * .0625);
-            double min = .125;
-            double max = 1-.125;
+            contentQuads.add(createQuad(v(min, maxY, min), v(min, maxY, max), v(max, maxY, max), v(max, maxY, min), texture));
+            contentQuads.add(createQuad(v(min, minY, min), v(max, minY, min), v(max, minY, max), v(min, minY, max), texture));
+            contentQuads.add(createQuad(v(max, maxY, max), v(max, minY, max), v(max, minY, min), v(max, maxY, min), texture));
+            contentQuads.add(createQuad(v(min, maxY, min), v(min, minY, min), v(min, minY, max), v(min, maxY, max), texture));
+            contentQuads.add(createQuad(v(max, maxY, min), v(max, minY, min), v(min, minY, min), v(min, maxY, min), texture));
+            contentQuads.add(createQuad(v(min, maxY, max), v(min, minY, max), v(max, minY, max), v(max, maxY, max), texture));
 
-            quads.add(createQuad(v(min, maxY, min), v(min, maxY, max), v(max, maxY, max), v(max, maxY, min), texture));
-            quads.add(createQuad(v(min, minY, min), v(max, minY, min), v(max, minY, max), v(min, minY, max), texture));
-            quads.add(createQuad(v(max, maxY, max), v(max, minY, max), v(max, minY, min), v(max, maxY, min), texture));
-            quads.add(createQuad(v(min, maxY, min), v(min, minY, min), v(min, minY, max), v(min, maxY, max), texture));
-            quads.add(createQuad(v(max, maxY, min), v(max, minY, min), v(min, minY, min), v(min, maxY, min), texture));
-            quads.add(createQuad(v(min, maxY, max), v(min, minY, max), v(max, minY, max), v(max, maxY, max), texture));
-
-            retQuads.addAll(quads);
+            retQuads.addAll(contentQuads);
         }
 
         return retQuads;
@@ -73,14 +72,14 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
 
         BakedQuadBuilder builder = new BakedQuadBuilder(sprite);
         builder.setQuadOrientation(Direction.getFacingFromVector(normal.x, normal.y, normal.z));
-        putVertex(builder, normal, v1.x, v1.y, v1.z, 0, 0, sprite, 1.0f, 1.0f, 1.0f);
-        putVertex(builder, normal, v2.x, v2.y, v2.z, 0, 16, sprite, 1.0f, 1.0f, 1.0f);
-        putVertex(builder, normal, v3.x, v3.y, v3.z, 16, 16, sprite, 1.0f, 1.0f, 1.0f);
-        putVertex(builder, normal, v4.x, v4.y, v4.z, 16, 0, sprite, 1.0f, 1.0f, 1.0f);
+        putVertex(builder, normal, v1.x, v1.y, v1.z, 2, 2, sprite);
+        putVertex(builder, normal, v2.x, v2.y, v2.z, 2, 14, sprite);
+        putVertex(builder, normal, v3.x, v3.y, v3.z, 14, 14, sprite);
+        putVertex(builder, normal, v4.x, v4.y, v4.z, 14, 2, sprite);
         return builder.build();
     }
 
-    private void putVertex(BakedQuadBuilder builder, Vec3d normal, double x, double y, double z, float u, float v, TextureAtlasSprite sprite, float r, float g, float b) {
+    private void putVertex(BakedQuadBuilder builder, Vec3d normal, double x, double y, double z, float u, float v, TextureAtlasSprite sprite) {
         ImmutableList<VertexFormatElement> elements = builder.getVertexFormat().getElements().asList();
         for (int j = 0 ; j < elements.size() ; j++) {
             VertexFormatElement e = elements.get(j);
@@ -89,7 +88,7 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
                     builder.put(j, (float) x, (float) y, (float) z, 1.0f);
                     break;
                 case COLOR:
-                    builder.put(j, r, g, b, 1.0f);
+                    builder.put(j, 1.0f, 1.0f, 1.0f, 1.0f);
                     break;
                 case UV:
                     switch (e.getIndex()) {
@@ -99,7 +98,7 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
                             builder.put(j, iu, iv);
                             break;
                         case 2:
-                            builder.put(j, 0f, 1f);
+                            builder.put(j, 0.0f, 0.0f);
                             break;
                         default:
                             builder.put(j);

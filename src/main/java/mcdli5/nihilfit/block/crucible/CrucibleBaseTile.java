@@ -146,8 +146,8 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
     }
 
     private void setContentLevel() {
-        float items = itemStackHandler.getStackInSlot(0).getCount() * 3.0F;
-        float fluid = fluidTank.getFluidAmount() / (1000/3.0F);
+        float items = itemStackHandler.getStackInSlot(0).getCount() * 3.0f;
+        float fluid = fluidTank.getFluidAmount() / (1000/3.0f);
 
         boolean is_fluid = (fluid >= items);
         int roundedResult = MathHelper.clamp(round(Math.max(items, fluid)), 1, 12);
@@ -171,7 +171,7 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
 
         if (!fluidStack.isEmpty()) {
             FluidAttributes fluidAttributes = fluidStack.getFluid().getAttributes();
-            return Math.max(round((fluidStack.getAmount() / 4000.0F) * fluidAttributes.getLuminosity(fluidStack)), 1);
+            return Math.max(round((fluidStack.getAmount() / 4000.0f) * fluidAttributes.getLuminosity(fluidStack)), 1);
         } else {
             return 0;
         }
@@ -208,11 +208,12 @@ public class CrucibleBaseTile extends TileEntity implements ITickableTileEntity 
 
         if (compoundNBT.contains("content")) {
             int oldLevel = level;
+            BlockState oldContent = content;
 
             content = NBTUtil.readBlockState(compoundNBT.getCompound("content"));
             level = compoundNBT.getInt("level");
 
-            if (oldLevel != level) {
+            if (oldLevel != level || (content != null && oldContent != content)) {
                 ModelDataManager.requestModelDataRefresh(this);
                 world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE + Constants.BlockFlags.NOTIFY_NEIGHBORS);
             }
