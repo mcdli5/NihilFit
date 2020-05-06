@@ -1,7 +1,11 @@
 package mcdli5.nihilfit;
 
-import mcdli5.nihilfit.setup.Setup;
+import mcdli5.nihilfit.client.ClientSetup;
+import mcdli5.nihilfit.setup.ModSetup;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -16,6 +20,10 @@ public final class NihilFit {
         final Marker marker = MarkerManager.getMarker("LOADING");
         LOGGER.debug(marker, "Hello from Nihil Fit!");
 
-        Setup.setup();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+
+        ModSetup.setup();
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setup);
     }
 }
