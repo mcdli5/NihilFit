@@ -1,7 +1,7 @@
 package mcdli5.nihilfit.block.crushedblock;
 
 import com.tterrag.registrate.util.RegistryEntry;
-import mcdli5.nihilfit.setup.ModSetup;
+import mcdli5.nihilfit.setup.Setup;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,7 +15,7 @@ public final class CrushedBlockSetup {
 
         String lang = name.equals("Dust") ? (name + " Block") : ("Crushed " + name);
 
-        return ModSetup.registrate()
+        return Setup.registrate()
             .block(registryName, Material.SAND, FallingBlock::new)
             .properties(properties -> properties
                 .hardnessAndResistance(0.7F)

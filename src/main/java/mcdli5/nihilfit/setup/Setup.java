@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup;
 
 import static mcdli5.nihilfit.NihilFit.MODID;
 
-public final class ModSetup {
+public final class Setup {
     public static final ItemGroup MOD_GROUP = new ModGroup(MODID);
 
     private static final NonNullLazyValue<Registrate> REGISTRATE = new NonNullLazyValue<Registrate>(

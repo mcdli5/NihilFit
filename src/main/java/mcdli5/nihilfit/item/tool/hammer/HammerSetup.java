@@ -1,7 +1,7 @@
 package mcdli5.nihilfit.item.tool.hammer;
 
 import com.tterrag.registrate.util.RegistryEntry;
-import mcdli5.nihilfit.setup.ModSetup;
+import mcdli5.nihilfit.setup.Setup;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
@@ -28,7 +28,7 @@ public final class HammerSetup {
         String lang = name + " Hammer";
         String criterion = "has_" + itemToBeMadeOf.toString();
 
-        return ModSetup.registrate()
+        return Setup.registrate()
             .item(registryName, b -> new HammerToolItem(itemTier))
             .model((ctx, prov) -> prov
                 .withExistingParent(ctx.getName(), "item/handheld")

@@ -3,7 +3,7 @@ package mcdli5.nihilfit.block.crucible;
 import com.tterrag.registrate.util.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.nihilfit.setup.ModBlocks;
-import mcdli5.nihilfit.setup.ModSetup;
+import mcdli5.nihilfit.setup.Setup;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Items;
@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntityType;
 public final class CrucibleSetup {
     // TODO: This need some refactor to avoid duplication
     public static RegistryEntry<CrucibleStoneBlock> registerStoneCrucible() {
-        return ModSetup.registrate()
+        return Setup.registrate()
             .block("crucible_stone", Material.ROCK, CrucibleStoneBlock::new)
             .properties(properties -> properties.hardnessAndResistance(2.0f))
             .blockstate((ctx, prov) -> prov.simpleBlock(
@@ -34,7 +34,7 @@ public final class CrucibleSetup {
     }
 
     public static RegistryEntry<CrucibleWoodBlock> registerWoodCrucible() {
-        return ModSetup.registrate()
+        return Setup.registrate()
             .block("crucible_wood", Material.ROCK, CrucibleWoodBlock::new)
             .properties(properties -> properties.hardnessAndResistance(2.0f))
             .blockstate((ctx, prov) -> prov.simpleBlock(
@@ -56,14 +56,14 @@ public final class CrucibleSetup {
     }
 
     public static RegistryEntry<TileEntityType<CrucibleStoneTile>> registerStoneCrucibleTile() {
-        return ModSetup.registrate()
+        return Setup.registrate()
             .tileEntity("crucible_stone", CrucibleStoneTile::new)
             .validBlock(NonNullSupplier.of(ModBlocks.CRUCIBLE_STONE))
             .register();
     }
 
     public static RegistryEntry<TileEntityType<CrucibleWoodTile>> registerWoodCrucibleTile() {
-        return ModSetup.registrate()
+        return Setup.registrate()
             .tileEntity("crucible_wood", CrucibleWoodTile::new)
             .validBlock(NonNullSupplier.of(ModBlocks.CRUCIBLE_WOOD))
             .register();

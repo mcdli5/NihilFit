@@ -11,7 +11,7 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.Set;
 
-import static mcdli5.nihilfit.setup.ModSetup.MOD_GROUP;
+import static mcdli5.nihilfit.setup.Setup.MOD_GROUP;
 
 public final class HammerToolItem extends ToolItem {
     public static final Set<Block> EFFECTIVE_ON = ImmutableSet.of(

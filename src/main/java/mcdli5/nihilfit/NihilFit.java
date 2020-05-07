@@ -1,7 +1,8 @@
 package mcdli5.nihilfit;
 
 import mcdli5.nihilfit.client.ClientSetup;
-import mcdli5.nihilfit.setup.ModSetup;
+import mcdli5.nihilfit.config.Config;
+import mcdli5.nihilfit.setup.Setup;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -22,7 +23,7 @@ public final class NihilFit {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
-        ModSetup.setup();
+        Setup.setup();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setup);
     }
