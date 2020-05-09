@@ -1,6 +1,6 @@
 package mcdli5.nihilfit.block.crucible;
 
-import mcdli5.nihilfit.setup.ModTiles;
+import mcdli5.nihilfit.init.NF_Tiles;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 public final class CrucibleStoneTile extends CrucibleBaseTile {
     public CrucibleStoneTile() {
         super(
-            ModTiles.CRUCIBLE_STONE.get(),
+            NF_Tiles.CRUCIBLE_STONE.get(),
             Items.COBBLESTONE.getDefaultInstance(),
             new FluidStack(Fluids.LAVA, 1000)
         );

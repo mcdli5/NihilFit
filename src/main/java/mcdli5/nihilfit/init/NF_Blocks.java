@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.setup;
+package mcdli5.nihilfit.init;
 
 import com.tterrag.registrate.util.RegistryEntry;
 import mcdli5.nihilfit.block.crucible.CrucibleStoneBlock;
@@ -9,7 +9,7 @@ import static mcdli5.nihilfit.block.crucible.CrucibleSetup.registerStoneCrucible
 import static mcdli5.nihilfit.block.crucible.CrucibleSetup.registerWoodCrucible;
 import static mcdli5.nihilfit.block.crushedblock.CrushedBlockSetup.registerCrushedBlock;
 
-public final class ModBlocks {
+public final class NF_Blocks {
     // Crushed Blocks
     public static final RegistryEntry<FallingBlock> CRUSHEDBLOCK_ANDESITE = registerCrushedBlock("Andesite");
     public static final RegistryEntry<FallingBlock> CRUSHEDBLOCK_DIORITE = registerCrushedBlock("Diorite");

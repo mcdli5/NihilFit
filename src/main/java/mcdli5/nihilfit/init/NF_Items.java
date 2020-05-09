@@ -1,11 +1,11 @@
-package mcdli5.nihilfit.setup;
+package mcdli5.nihilfit.init;
 
 import com.tterrag.registrate.util.RegistryEntry;
 import mcdli5.nihilfit.item.tool.hammer.HammerToolItem;
 
 import static mcdli5.nihilfit.item.tool.hammer.HammerSetup.registerHammer;
 
-public final class ModItems {
+public final class NF_Items {
     // Hammers
     public static final RegistryEntry<HammerToolItem> HAMMER_DIAMOND = registerHammer("Diamond");
     public static final RegistryEntry<HammerToolItem> HAMMER_GOLD = registerHammer("Gold");

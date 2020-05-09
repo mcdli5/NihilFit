@@ -15,10 +15,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static mcdli5.nihilfit.NihilFit.MODID;
-import static mcdli5.nihilfit.setup.ModBlocks.*;
+import static mcdli5.nihilfit.NihilFit.NF_ID;
+import static mcdli5.nihilfit.init.NF_Blocks.*;
 
-@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = NF_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {
     @SubscribeEvent
     public static void registerModifierSerializers(
@@ -26,7 +26,7 @@ public final class HammerLootModifier {
 
         event.getRegistry().register(
             new LootModifier.Serializer().setRegistryName(
-                new ResourceLocation(MODID, "broken_by_hammer")
+                new ResourceLocation(NF_ID, "broken_by_hammer")
             )
         );
     }

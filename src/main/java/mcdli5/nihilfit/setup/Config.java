@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.config;
+package mcdli5.nihilfit.setup;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
@@ -11,39 +11,20 @@ import net.minecraftforge.fml.config.ModConfig;
 
 import java.nio.file.Path;
 
-import static mcdli5.nihilfit.NihilFit.MODID;
+import static mcdli5.nihilfit.NihilFit.NF_ID;
 
-@Mod.EventBusSubscriber(modid = MODID, bus = Bus.FORGE)
+@Mod.EventBusSubscriber(modid = NF_ID, bus = Bus.FORGE)
 public final class Config {
     private static final String CATEGORY_MAIN = "main";
-    private static final String SUBCATEGORY_REGISTRY_OPTIONS = "registry";
 
     private static final Builder COMMON_BUILDER = new Builder();
 
     public static ForgeConfigSpec COMMON_CONFIG;
 
-    public static ForgeConfigSpec.BooleanValue USE_JSON_REGISTRIES;
-    public static ForgeConfigSpec.IntValue NUMBER_OF_TIMES_TO_TEST_VANILLA_DROPS;
-
     static {
-        COMMON_BUILDER.comment("Main Settings").push(CATEGORY_MAIN);
-        setUpMainConfig();
+        COMMON_BUILDER.push(CATEGORY_MAIN);
         COMMON_BUILDER.pop();
         COMMON_CONFIG = COMMON_BUILDER.build();
-    }
-
-    private static void setUpMainConfig() {
-        COMMON_BUILDER.comment("Registry Options").push(SUBCATEGORY_REGISTRY_OPTIONS);
-
-        USE_JSON_REGISTRIES = COMMON_BUILDER
-            .comment("Decides which registry to use.")
-            .define("useJSON", false);
-
-        NUMBER_OF_TIMES_TO_TEST_VANILLA_DROPS = COMMON_BUILDER
-            .comment("Decides how many times should be tested for drops.")
-            .defineInRange("numberOfTimesToTestVanillaDrops", 3, 1, 10);
-
-        COMMON_BUILDER.pop();
     }
 
     public static void loadConfig(ForgeConfigSpec spec, Path path) {

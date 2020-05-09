@@ -1,6 +1,6 @@
 package mcdli5.nihilfit.block.crucible;
 
-import mcdli5.nihilfit.setup.ModTiles;
+import mcdli5.nihilfit.init.NF_Tiles;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 public final class CrucibleWoodTile extends CrucibleBaseTile {
     public CrucibleWoodTile() {
         super(
-            ModTiles.CRUCIBLE_WOOD.get(),
+            NF_Tiles.CRUCIBLE_WOOD.get(),
             Items.OAK_SAPLING.getDefaultInstance(),
             new FluidStack(Fluids.WATER, 1000)
         );

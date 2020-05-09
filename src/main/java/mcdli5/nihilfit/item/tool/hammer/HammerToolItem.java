@@ -1,6 +1,7 @@
 package mcdli5.nihilfit.item.tool.hammer;
 
 import com.google.common.collect.ImmutableSet;
+import mcdli5.nihilfit.NihilFit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -11,8 +12,6 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.Set;
 
-import static mcdli5.nihilfit.setup.Setup.MOD_GROUP;
-
 public final class HammerToolItem extends ToolItem {
     public static final Set<Block> EFFECTIVE_ON = ImmutableSet.of(
         Blocks.COBBLESTONE, Blocks.GRAVEL, Blocks.SAND, Blocks.NETHERRACK,
@@ -21,7 +20,7 @@ public final class HammerToolItem extends ToolItem {
 
     protected HammerToolItem(ItemTier tier) {
         super(1, -2.8F, tier, EFFECTIVE_ON,
-            new Item.Properties().group(MOD_GROUP).addToolType(ToolType.get("hammer"), tier.getHarvestLevel())
+            new Item.Properties().group(NihilFit.NF_GROUP).addToolType(ToolType.get("hammer"), tier.getHarvestLevel())
         );
     }
 

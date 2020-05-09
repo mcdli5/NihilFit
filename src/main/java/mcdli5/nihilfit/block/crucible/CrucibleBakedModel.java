@@ -1,10 +1,9 @@
-package mcdli5.nihilfit.client.model;
+package mcdli5.nihilfit.block.crucible;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
-import mcdli5.nihilfit.block.crucible.CrucibleBaseTile;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
