@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntityType;
 
 public final class NF_Tiles {
     // Crucible Tile
-    public static final RegistryEntry<TileEntityType<CrucibleTile>> CRUCIBLE = Crucible.registerCrucibleTile();
+    public static final RegistryEntry<TileEntityType<CrucibleTile>> CRUCIBLE = Crucible.getTileRegistryEntry();
 
     public static void setup() {
     }
