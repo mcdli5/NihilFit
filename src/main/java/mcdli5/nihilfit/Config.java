@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.setup;
+package mcdli5.nihilfit;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;

@@ -1,6 +1,6 @@
-package mcdli5.nihilfit.setup;
+package mcdli5.nihilfit.client;
 
-import mcdli5.nihilfit.block.crucible.CrucibleBakedModel;
+import mcdli5.nihilfit.client.model.CrucibleBakedModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.model.ModelLoaderRegistry;

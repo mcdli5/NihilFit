@@ -18,6 +18,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
+    id "io.freefair.lombok" version "5.0.1"
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
@@ -113,6 +114,9 @@ dependencies {
     implementation fg.deobf(registrate)
     shade registrate
 
+    // Night Config Json
+    compile "com.electronwill.night-config:toml:${nightConfigVersion}"
+
     // JEI
     // compileOnly fg.deobf("mezz.jei:jei-${jeiVersion}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jeiVersion}")
@@ -120,6 +124,19 @@ dependencies {
     // TOP
     // compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}:api")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}")
+}
+
+lombok {
+    version = '1.18.12'
+    config['config.stopBubbling'] = 'true'
+    config['lombok.addJavaxGeneratedAnnotation'] = 'true'
+}
+
+delombok {
+    format = [
+        'suppressWarnings': 'skip',
+        'javaLangAsFQN': 'skip'
+    ]
 }
 
 jar {
