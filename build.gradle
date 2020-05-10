@@ -114,9 +114,6 @@ dependencies {
     implementation fg.deobf(registrate)
     shade registrate
 
-    // Night Config Json
-    compile "com.electronwill.night-config:toml:${nightConfigVersion}"
-
     // JEI
     // compileOnly fg.deobf("mezz.jei:jei-${jeiVersion}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jeiVersion}")

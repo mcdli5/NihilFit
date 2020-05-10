@@ -7,17 +7,15 @@ import net.minecraft.item.ItemTier;
 import net.minecraft.item.ToolItem;
 import net.minecraftforge.common.ToolType;
 
-import static mcdli5.nihilfit.registry.NF_Registry.HAMMER_REGISTRY;
-
 public final class HammerToolItem extends ToolItem {
     protected HammerToolItem(ItemTier tier) {
-        super(1, -2.8F, tier, HAMMER_REGISTRY.EFFECTIVE_ON,
+        super(1, -2.8F, tier, HammerRegistry.EFFECTIVE_ON,
             new Item.Properties().group(NihilFit.NF_GROUP).addToolType(ToolType.get("hammer"), tier.getHarvestLevel())
         );
     }
 
     @Override
     public boolean canHarvestBlock(BlockState blockIn) {
-        return HAMMER_REGISTRY.EFFECTIVE_ON.contains(blockIn.getBlock());
+        return HammerRegistry.EFFECTIVE_ON.contains(blockIn.getBlock());
     }
 }

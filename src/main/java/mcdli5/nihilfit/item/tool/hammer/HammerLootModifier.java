@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 import static mcdli5.nihilfit.NihilFit.NF_ID;
-import static mcdli5.nihilfit.registry.NF_Registry.HAMMER_REGISTRY;
 
 @Mod.EventBusSubscriber(modid = NF_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {
@@ -43,7 +42,7 @@ public final class HammerLootModifier {
             final ItemStack tool = context.get(LootParameters.TOOL);
             final int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
 
-            return HAMMER_REGISTRY.getDrops(generatedLoot, context.getRandom(), fortuneLevel);
+            return HammerRegistry.getDrops(generatedLoot, context.getRandom(), fortuneLevel);
         }
 
         private static class Serializer extends GlobalLootModifierSerializer<LootModifier> {

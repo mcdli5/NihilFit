@@ -1,33 +1,28 @@
 package mcdli5.nihilfit.item.tool.hammer;
 
 import com.google.common.collect.ImmutableSet;
+import lombok.Data;
 import lombok.NonNull;
 import mcdli5.nihilfit.init.NF_Blocks;
-import mcdli5.nihilfit.registry.BaseRegistryMap;
-import mcdli5.nihilfit.registry.Type;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
-public final class HammerRegistry extends BaseRegistryMap<Block, NonNullList<Type.HammerReward>> {
+public final class HammerRegistry {
     private static final Set<String> COLORS = ImmutableSet.of(
         "WHITE", "ORANGE", "MAGENTA", "LIGHT_BLUE", "YELLOW", "LIME", "PINK", "GRAY",
         "LIGHT_GRAY", "CYAN", "BLUE", "PURPLE", "GREEN", "BROWN", "RED", "BLACK"
     );
-    private static final Marker marker = MarkerManager.getMarker("HAMMER_REGISTRY");
-    public final Set<Block> EFFECTIVE_ON;
 
-    public HammerRegistry() throws NoSuchFieldException, IllegalAccessException {
+    protected static final Set<Block> EFFECTIVE_ON;
+    private static final HashMap<Block, List<HammerReward>> REGISTRY = new HashMap<>();
+
+    static {
         register(Blocks.STONE, Items.COBBLESTONE);
         register(Blocks.COBBLESTONE, Items.GRAVEL);
         register(Blocks.GRAVEL, Items.SAND);
@@ -38,51 +33,59 @@ public final class HammerRegistry extends BaseRegistryMap<Block, NonNullList<Typ
         register(Blocks.GRANITE, NF_Blocks.CRUSHEDBLOCK_GRANITE.get().asItem());
         register(Blocks.NETHERRACK, NF_Blocks.CRUSHEDBLOCK_NETHERRACK.get().asItem());
 
-        for (String color : COLORS) {
-            Block block = (Block) Blocks.class.getField(color + "_CONCRETE").get(null);
-            Item item = (Item) Items.class.getField(color + "_CONCRETE_POWDER").get(null);
-            register(block, item);
+        try {
+            for (String color : COLORS) {
+                Block block = (Block) Blocks.class.getField(color + "_CONCRETE").get(null);
+                Item item = (Item) Items.class.getField(color + "_CONCRETE_POWDER").get(null);
+                register(block, item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        for (String color : COLORS) {
-            Block block = (Block) Blocks.class.getField(color + "_WOOL").get(null);
-            register(block, Items.STRING, 1f, 0f);
-            register(block, Items.STRING, 0.5f, 0.25f);
-            Item dye = (Item) Items.class.getField(color + "_DYE").get(null);
-            register(block, dye, 1f / 8f, 2f);
+        try {
+            for (String color : COLORS) {
+                Block block = (Block) Blocks.class.getField(color + "_WOOL").get(null);
+                register(block, Items.STRING, 1f, 0f);
+                register(block, Items.STRING, 0.5f, 0.25f);
+                Item dye = (Item) Items.class.getField(color + "_DYE").get(null);
+                register(block, dye, 1f / 8f, 2f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        EFFECTIVE_ON = ImmutableSet.copyOf(registry.keySet());
+        EFFECTIVE_ON = ImmutableSet.copyOf(REGISTRY.keySet());
     }
 
-    private void register(Block block, Item item) {
+    private static void register(Block block, Item item) {
         register(block, item, 1f, 0f);
     }
 
-    private void register(Block block, Item item, float chance, float fortuneChance) {
-        register(block, new Type.HammerReward(item, chance, fortuneChance));
+    private static void register(Block block, Item item, float chance, float fortuneChance) {
+        register(block, new HammerReward(item, chance, fortuneChance));
     }
 
-    private void register(Block block, Type.HammerReward reward) {
-        if (registry.containsKey(block)) {
-            registry.get(block).add(reward);
+    private static void register(Block block, HammerReward reward) {
+        if (REGISTRY.containsKey(block)) {
+            REGISTRY.get(block).add(reward);
         } else {
-            NonNullList<Type.HammerReward> drops = NonNullList.create();
+            NonNullList<HammerReward> drops = NonNullList.create();
             drops.add(reward);
-            register(block, drops);
+            REGISTRY.put(block, drops);
         }
     }
 
-    public List<ItemStack> getDrops(List<ItemStack> originalDrops, @NonNull Random random, int fortuneLevel) {
+    protected static List<ItemStack> getDrops(List<ItemStack> originalDrops, @NonNull Random random, int fortuneLevel) {
         final NonNullList<ItemStack> drops = NonNullList.create();
 
         for (ItemStack originalDrop : originalDrops) {
-            registry.entrySet().stream()
+            REGISTRY.entrySet().stream()
                 .filter(entry ->
                     entry.getKey().equals(Block.getBlockFromItem(originalDrop.getItem())))
                 .map(Map.Entry::getValue)
                 .forEach(rewards -> {
-                    for (Type.HammerReward reward : rewards) {
+                    for (HammerReward reward : rewards) {
                         if (random.nextFloat() <= reward.getChance() + (reward.getFortuneChance() * fortuneLevel)) {
                             drops.add(new ItemStack(reward.getItem(), 1));
                         }
@@ -91,5 +94,12 @@ public final class HammerRegistry extends BaseRegistryMap<Block, NonNullList<Typ
         }
 
         return drops;
+    }
+
+    @Data
+    public static class HammerReward {
+        private final Item item;
+        private final float chance;
+        private final float fortuneChance;
     }
 }
