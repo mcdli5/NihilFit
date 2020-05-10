@@ -127,9 +127,8 @@ dependencies {
 }
 
 lombok {
-    version = '1.18.12'
+    version = lombokVersion
     config['config.stopBubbling'] = 'true'
-    config['lombok.addJavaxGeneratedAnnotation'] = 'true'
 }
 
 delombok {

@@ -1,9 +1,12 @@
 package mcdli5.nihilfit.item.tool.hammer;
 
 import com.google.gson.JsonObject;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -12,9 +15,9 @@ import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static mcdli5.nihilfit.NihilFit.NF_ID;
+import static mcdli5.nihilfit.registry.NF_Registry.HAMMER_REGISTRY;
 
 @Mod.EventBusSubscriber(modid = NF_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class HammerLootModifier {
@@ -37,7 +40,10 @@ public final class HammerLootModifier {
         @Nonnull
         @Override
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-            return generatedLoot.stream().map(HammerRegistry::getReward).collect(Collectors.toList());
+            final ItemStack tool = context.get(LootParameters.TOOL);
+            final int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
+
+            return HAMMER_REGISTRY.getDrops(generatedLoot, context.getRandom(), fortuneLevel);
         }
 
         private static class Serializer extends GlobalLootModifierSerializer<LootModifier> {

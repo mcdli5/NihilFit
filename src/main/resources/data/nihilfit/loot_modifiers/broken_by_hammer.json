@@ -69,6 +69,134 @@
         {
           "condition": "block_state_property",
           "block": "minecraft:granite"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:white_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:orange_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:magenta_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:light_blue_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:yellow_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:lime_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:pink_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:gray_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:light_gray_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:cyan_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:blue_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:purple_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:green_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:brown_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:red_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:black_concrete"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:white_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:orange_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:magenta_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:light_blue_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:yellow_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:lime_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:pink_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:gray_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:light_gray_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:cyan_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:blue_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:purple_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:green_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:brown_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:red_wool"
+        },
+        {
+          "condition": "block_state_property",
+          "block": "minecraft:black_wool"
         }
       ]
     }

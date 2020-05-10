@@ -27,6 +27,9 @@ forge*changelog.txt
 # Leftover from data generation
 /src/main/generated/resources/.cache/
 
+# Lombok
+lombok.config
+
 # Secret!
 github.properties
 curse.properties
