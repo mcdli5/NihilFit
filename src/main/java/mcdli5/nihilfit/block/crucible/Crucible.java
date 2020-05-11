@@ -8,24 +8,26 @@ import mcdli5.nihilfit.NihilFit;
 import mcdli5.nihilfit.init.NF_Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.common.ToolType;
 
 import java.util.function.Supplier;
 
+import static mcdli5.nihilfit.block.crucible.CrucibleRegistry.CRUCIBLE_STONE_REGISTRY;
+import static mcdli5.nihilfit.block.crucible.CrucibleRegistry.CRUCIBLE_WOOD_REGISTRY;
+
 public enum Crucible {
     STONE(
-        "crucible_stone", Material.ROCK,
-        () -> new CrucibleTile(Items.COBBLESTONE.getDefaultInstance(), new FluidStack(Fluids.LAVA, 1000)),
-        "block/stone_bricks", "Stone Crucible", Items.STONE_BRICKS, "has_stone_brick"
+        "crucible_stone", Material.ROCK, "block/stone_bricks",
+        () -> new CrucibleTile(CRUCIBLE_STONE_REGISTRY), ToolType.PICKAXE,
+        "Stone Crucible", Items.STONE_BRICKS, "has_stone_brick"
     ),
     WOOD(
-        "crucible_wood", Material.WOOD,
-        () -> new CrucibleTile(Items.OAK_SAPLING.getDefaultInstance(), new FluidStack(Fluids.WATER, 1000)),
-        "block/oak_log", "Wood Crucible", Items.OAK_LOG, "has_oak_log"
+        "crucible_wood", Material.WOOD, "block/oak_log",
+        () -> new CrucibleTile(CRUCIBLE_WOOD_REGISTRY), ToolType.AXE,
+        "Wood Crucible", Items.OAK_LOG, "has_oak_log"
     );
 
     private static RegistryEntry<TileEntityType<CrucibleTile>> tileRegistryEntry;
@@ -33,12 +35,15 @@ public enum Crucible {
     private RegistryEntry<CrucibleBlock> blockRegistryEntry;
 
     Crucible(
-        String name, Material material, Supplier<CrucibleTile> tileSupplier,
-        String texture, String lang, Item itemToBeMadeOf, String criterion
+        String name, Material material, String texture,
+        Supplier<CrucibleTile> tileSupplier, ToolType toolType,
+        String lang, Item itemToBeMadeOf, String criterion
     ) {
         blockBuilder = NihilFit.registrate()
             .block(name, material, (b) -> new CrucibleBlock(b, tileSupplier))
-            .properties(properties -> properties.hardnessAndResistance(2.0f))
+            .properties(properties -> properties
+                .hardnessAndResistance(2.0f)
+                .harvestTool(toolType))
             .blockstate((ctx, prov) -> prov.simpleBlock(
                 ctx.getEntry(),
                 prov.models().getBuilder(ctx.getName())

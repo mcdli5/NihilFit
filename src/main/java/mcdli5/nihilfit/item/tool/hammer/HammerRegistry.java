@@ -14,11 +14,6 @@ import net.minecraft.util.NonNullList;
 import java.util.*;
 
 public final class HammerRegistry {
-    private static final Set<String> COLORS = ImmutableSet.of(
-        "WHITE", "ORANGE", "MAGENTA", "LIGHT_BLUE", "YELLOW", "LIME", "PINK", "GRAY",
-        "LIGHT_GRAY", "CYAN", "BLUE", "PURPLE", "GREEN", "BROWN", "RED", "BLACK"
-    );
-
     protected static final Set<Block> EFFECTIVE_ON;
     private static final HashMap<Block, List<HammerReward>> REGISTRY = new HashMap<>();
 
@@ -33,27 +28,73 @@ public final class HammerRegistry {
         register(Blocks.GRANITE, NF_Blocks.CRUSHEDBLOCK_GRANITE.get().asItem());
         register(Blocks.NETHERRACK, NF_Blocks.CRUSHEDBLOCK_NETHERRACK.get().asItem());
 
-        try {
-            for (String color : COLORS) {
-                Block block = (Block) Blocks.class.getField(color + "_CONCRETE").get(null);
-                Item item = (Item) Items.class.getField(color + "_CONCRETE_POWDER").get(null);
-                register(block, item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Concrete
+        register(Blocks.WHITE_CONCRETE, Items.WHITE_CONCRETE_POWDER);
+        register(Blocks.ORANGE_CONCRETE, Items.ORANGE_CONCRETE_POWDER);
+        register(Blocks.MAGENTA_CONCRETE, Items.MAGENTA_CONCRETE_POWDER);
+        register(Blocks.LIGHT_BLUE_CONCRETE, Items.LIGHT_BLUE_CONCRETE_POWDER);
+        register(Blocks.YELLOW_CONCRETE, Items.YELLOW_CONCRETE_POWDER);
+        register(Blocks.LIME_CONCRETE, Items.LIME_CONCRETE_POWDER);
+        register(Blocks.PINK_CONCRETE, Items.PINK_CONCRETE_POWDER);
+        register(Blocks.GRAY_CONCRETE, Items.GRAY_CONCRETE_POWDER);
+        register(Blocks.LIGHT_GRAY_CONCRETE, Items.LIGHT_GRAY_CONCRETE_POWDER);
+        register(Blocks.CYAN_CONCRETE, Items.CYAN_CONCRETE_POWDER);
+        register(Blocks.BLUE_CONCRETE, Items.BLUE_CONCRETE_POWDER);
+        register(Blocks.PURPLE_CONCRETE, Items.PURPLE_CONCRETE_POWDER);
+        register(Blocks.GREEN_CONCRETE, Items.GREEN_CONCRETE_POWDER);
+        register(Blocks.BROWN_CONCRETE, Items.BROWN_CONCRETE_POWDER);
+        register(Blocks.RED_CONCRETE, Items.RED_CONCRETE_POWDER);
+        register(Blocks.BLACK_CONCRETE, Items.BLACK_CONCRETE_POWDER);
 
-        try {
-            for (String color : COLORS) {
-                Block block = (Block) Blocks.class.getField(color + "_WOOL").get(null);
-                register(block, Items.STRING, 1f, 0f);
-                register(block, Items.STRING, 0.5f, 0.25f);
-                Item dye = (Item) Items.class.getField(color + "_DYE").get(null);
-                register(block, dye, 1f / 8f, 2f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Wool
+        register(Blocks.WHITE_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.WHITE_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.WHITE_WOOL, Items.WHITE_DYE, 1f / 8f, 2f);
+        register(Blocks.ORANGE_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.ORANGE_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.ORANGE_WOOL, Items.ORANGE_DYE, 1f / 8f, 2f);
+        register(Blocks.MAGENTA_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.MAGENTA_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.MAGENTA_WOOL, Items.MAGENTA_DYE, 1f / 8f, 2f);
+        register(Blocks.LIGHT_BLUE_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.LIGHT_BLUE_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.LIGHT_BLUE_WOOL, Items.LIGHT_BLUE_DYE, 1f / 8f, 2f);
+        register(Blocks.YELLOW_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.YELLOW_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.YELLOW_WOOL, Items.YELLOW_DYE, 1f / 8f, 2f);
+        register(Blocks.LIME_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.LIME_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.LIME_WOOL, Items.LIME_DYE, 1f / 8f, 2f);
+        register(Blocks.PINK_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.PINK_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.PINK_WOOL, Items.PINK_DYE, 1f / 8f, 2f);
+        register(Blocks.GRAY_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.GRAY_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.GRAY_WOOL, Items.GRAY_DYE, 1f / 8f, 2f);
+        register(Blocks.LIGHT_GRAY_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.LIGHT_GRAY_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.LIGHT_GRAY_WOOL, Items.LIGHT_GRAY_DYE, 1f / 8f, 2f);
+        register(Blocks.CYAN_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.CYAN_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.CYAN_WOOL, Items.CYAN_DYE, 1f / 8f, 2f);
+        register(Blocks.BLUE_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.BLUE_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.BLUE_WOOL, Items.BLUE_DYE, 1f / 8f, 2f);
+        register(Blocks.PURPLE_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.PURPLE_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.PURPLE_WOOL, Items.PURPLE_DYE, 1f / 8f, 2f);
+        register(Blocks.GREEN_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.GREEN_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.GREEN_WOOL, Items.GREEN_DYE, 1f / 8f, 2f);
+        register(Blocks.BROWN_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.BROWN_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.BROWN_WOOL, Items.BROWN_DYE, 1f / 8f, 2f);
+        register(Blocks.RED_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.RED_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.RED_WOOL, Items.RED_DYE, 1f / 8f, 2f);
+        register(Blocks.BLACK_WOOL, Items.STRING, 1f, 0f);
+        register(Blocks.BLACK_WOOL, Items.STRING, 0.5f, 0.25f);
+        register(Blocks.BLACK_WOOL, Items.BLACK_DYE, 1f / 8f, 2f);
 
         EFFECTIVE_ON = ImmutableSet.copyOf(REGISTRY.keySet());
     }
