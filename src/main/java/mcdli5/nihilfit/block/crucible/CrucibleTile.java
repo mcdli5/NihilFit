@@ -44,7 +44,9 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
     private CrucibleRegistry registry;
     private String registryName;
     protected ItemStackHandler itemStackHandler;
+    private LazyOptional<ItemStackHandler> itemStackHandlerLazyOptional;
     protected CrucibleFluidTank fluidTank;
+    private LazyOptional<CrucibleFluidTank> fluidTankLazyOptional;
 
     private int level = 0;
     private BlockState content = null;
@@ -62,12 +64,12 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
         super(NF_Tiles.CRUCIBLE.get());
         this.registry = registry;
         this.registryName = registry.getName();
-        itemStackHandler = createItemStackHandler();
-        fluidTank = createFluidTank();
+        createItemStackHandler();
+        createFluidTank();
     }
 
-    private ItemStackHandler createItemStackHandler() {
-        return new ItemStackHandler(1) {
+    private void createItemStackHandler() {
+        itemStackHandler = new ItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return registry.isItemValid(stack);
@@ -90,12 +92,14 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
                 markDirty();
             }
         };
+
+        itemStackHandlerLazyOptional = LazyOptional.of(() -> itemStackHandler);
     }
 
-    private CrucibleFluidTank createFluidTank() {
+    private void createFluidTank() {
         int fluidCapacity = CAPACITY * FluidAttributes.BUCKET_VOLUME;
-
-        return new CrucibleFluidTank(fluidCapacity, registry.VALID_FLUID::isFluidEqual);
+        fluidTank = new CrucibleFluidTank(fluidCapacity, registry.VALID_FLUID::isFluidEqual);
+        fluidTankLazyOptional = LazyOptional.of(() -> fluidTank);
     }
 
     @Override
@@ -234,10 +238,10 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
             }
         }
 
-        if (itemStackHandler == null) itemStackHandler = createItemStackHandler();
+        if (itemStackHandler == null) createItemStackHandler();
         itemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
 
-        if (fluidTank == null) fluidTank = createFluidTank();
+        if (fluidTank == null) createFluidTank();
         fluidTank.readFromNBT(compoundNBT);
 
         content = NBTUtil.readBlockState(compoundNBT.getCompound("content"));
@@ -271,11 +275,11 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return LazyOptional.of(() -> itemStackHandler).cast();
+            return itemStackHandlerLazyOptional.cast();
         }
 
         if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return LazyOptional.of(() -> fluidTank).cast();
+            return fluidTankLazyOptional.cast();
         }
 
         return super.getCapability(cap, side);

@@ -1,8 +1,8 @@
 package mcdli5.nihilfit.init;
 
 import com.tterrag.registrate.util.RegistryEntry;
-import mcdli5.nihilfit.item.tool.hammer.Hammer;
-import mcdli5.nihilfit.item.tool.hammer.HammerToolItem;
+import mcdli5.nihilfit.item.hammer.Hammer;
+import mcdli5.nihilfit.item.hammer.HammerToolItem;
 
 public final class NF_Items {
     // Hammers

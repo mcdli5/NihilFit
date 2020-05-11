@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.tool.hammer;
+package mcdli5.nihilfit.item.hammer;
 
 import com.google.common.collect.ImmutableSet;
 import lombok.Data;

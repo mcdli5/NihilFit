@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.tool.hammer;
+package mcdli5.nihilfit.item.hammer;
 
 import mcdli5.nihilfit.NihilFit;
 import net.minecraft.block.BlockState;

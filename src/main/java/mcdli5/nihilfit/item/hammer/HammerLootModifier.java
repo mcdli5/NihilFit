@@ -1,4 +1,4 @@
-package mcdli5.nihilfit.item.tool.hammer;
+package mcdli5.nihilfit.item.hammer;
 
 import com.google.gson.JsonObject;
 import net.minecraft.enchantment.EnchantmentHelper;
