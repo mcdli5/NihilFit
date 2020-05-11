@@ -1,9 +1,10 @@
-package mcdli5.nihilfit.block.crucible;
+package mcdli5.nihilfit.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
+import mcdli5.nihilfit.block.crucible.CrucibleTile;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelShapes;
@@ -39,8 +40,8 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
-        BlockState content = extraData.getData(CrucibleBaseTile.CONTENT);
-        Integer level = extraData.getData(CrucibleBaseTile.LEVEL);
+        BlockState content = extraData.getData(CrucibleTile.CONTENT);
+        Integer level = extraData.getData(CrucibleTile.LEVEL);
 
         List<BakedQuad> retQuads = new ArrayList<>(this.originalModel.getQuads(state, side, rand, extraData));
 

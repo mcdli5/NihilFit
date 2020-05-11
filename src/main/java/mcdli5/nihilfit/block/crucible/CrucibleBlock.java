@@ -3,7 +3,6 @@ package mcdli5.nihilfit.block.crucible;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ContainerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.items.IItemHandler;
 
-public abstract class CrucibleBaseBlock extends ContainerBlock {
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
+
+public final class CrucibleBlock extends Block {
     public static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
 
     private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
@@ -40,8 +42,11 @@ public abstract class CrucibleBaseBlock extends ContainerBlock {
         IBooleanFunction.ONLY_FIRST
     );
 
-    public CrucibleBaseBlock(Properties builder) {
-        super(builder.hardnessAndResistance(2.0f));
+    private final Supplier<CrucibleTile> tileSupplier;
+
+    public CrucibleBlock(Properties builder, Supplier<CrucibleTile> tileSupplier) {
+        super(builder);
+        this.tileSupplier = tileSupplier;
 
         this.setDefaultState(this.getDefaultState()
             .with(LIGHT_LEVEL, 0)
@@ -59,13 +64,19 @@ public abstract class CrucibleBaseBlock extends ContainerBlock {
         return true;
     }
 
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return tileSupplier.get();
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote) {
             final TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof CrucibleBaseTile) {
-                CrucibleBaseTile.CrucibleFluidTank crucibleFluidTank = ((CrucibleBaseTile) tileEntity).fluidTank;
+            if (tileEntity instanceof CrucibleTile) {
+                CrucibleTile.CrucibleFluidTank crucibleFluidTank = ((CrucibleTile) tileEntity).fluidTank;
 
                 FluidStack fluidStack = crucibleFluidTank.getFluid();
                 SoundEvent soundevent = fluidStack.getFluid().getAttributes().getFillSound();
@@ -86,7 +97,7 @@ public abstract class CrucibleBaseBlock extends ContainerBlock {
                 }
                 // Let's try to insert the meltable (if the player is holding one)
                 else {
-                    IItemHandler itemHandler = ((CrucibleBaseTile) tileEntity).itemStackHandler;
+                    IItemHandler itemHandler = ((CrucibleTile) tileEntity).itemStackHandler;
                     ItemStack heldItem = new ItemStack(player.getHeldItem(handIn).getItem(), 1);
 
                     // Insert one item at a time

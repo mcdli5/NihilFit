@@ -1,7 +1,9 @@
 package mcdli5.nihilfit.block.crucible;
 
+import mcdli5.nihilfit.init.NF_Tiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -9,7 +11,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -18,7 +19,6 @@ import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.extensions.IForgeBlockState;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -35,28 +35,33 @@ import java.util.function.Predicate;
 
 import static java.lang.Math.round;
 
-public abstract class CrucibleBaseTile extends TileEntity implements ITickableTileEntity {
+public final class CrucibleTile extends TileEntity implements ITickableTileEntity {
     private static final int CAPACITY = 4;
 
     public static final ModelProperty<Integer> LEVEL = new ModelProperty<>();
     public static final ModelProperty<BlockState> CONTENT = new ModelProperty<>();
 
-    protected final ItemStack validItemStack;
-    protected final FluidStack validFluidStack;
-    protected final ItemStackHandler itemStackHandler;
-    protected final CrucibleFluidTank fluidTank;
+    private CrucibleRegistry registry;
+    private String registryName;
+    protected ItemStackHandler itemStackHandler;
+    protected CrucibleFluidTank fluidTank;
 
     private int level = 0;
     private BlockState content = null;
 
     private int solidAmount = 0;
     private int amountUsed = 0;
+    private int currentItemAmount = 0;
     private int ticksSinceLast = 0;
 
-    public CrucibleBaseTile(TileEntityType<?> tileEntityTypeIn, ItemStack validItemStack, FluidStack validFluidStack) {
-        super(tileEntityTypeIn);
-        this.validItemStack = validItemStack;
-        this.validFluidStack = validFluidStack;
+    public CrucibleTile() {
+        super(NF_Tiles.CRUCIBLE.get());
+    }
+
+    public CrucibleTile(CrucibleRegistry registry) {
+        super(NF_Tiles.CRUCIBLE.get());
+        this.registry = registry;
+        this.registryName = registry.getName();
         itemStackHandler = createItemStackHandler();
         fluidTank = createFluidTank();
     }
@@ -65,7 +70,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
         return new ItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return stack.isItemEqual(validItemStack);
+                return registry.isItemValid(stack);
             }
 
             @Nonnull
@@ -90,7 +95,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
     private CrucibleFluidTank createFluidTank() {
         int fluidCapacity = CAPACITY * FluidAttributes.BUCKET_VOLUME;
 
-        return new CrucibleFluidTank(fluidCapacity, validFluidStack::isFluidEqual);
+        return new CrucibleFluidTank(fluidCapacity, registry.VALID_FLUID::isFluidEqual);
     }
 
     @Override
@@ -107,7 +112,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
             }
 
             if (solidAmount <= 0) {
-                if (amountUsed >= 250) {
+                if (amountUsed >= currentItemAmount && currentItemAmount != 0) {
                     itemStackHandler.getStackInSlot(0).shrink(1);
                     amountUsed = 0;
                 }
@@ -115,9 +120,10 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
                 if (itemStackHandler.getStackInSlot(0).isEmpty()) {
                     setContentLevel();
                     return;
+                } else {
+                    Item currentItem = itemStackHandler.getStackInSlot(0).getItem();
+                    currentItemAmount = solidAmount = registry.getMeltable(currentItem).getAmount();
                 }
-
-                solidAmount = 250;
             }
 
             // Never take more than we have left
@@ -125,7 +131,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
                 heatRate = solidAmount;
             }
 
-            FluidStack toFill = new FluidStack(validFluidStack.getFluid(), heatRate);
+            FluidStack toFill = new FluidStack(registry.VALID_FLUID.getFluid(), heatRate);
             int filled = fluidTank.fillInternal(toFill, IFluidHandler.FluidAction.EXECUTE);
             solidAmount -= filled;
             amountUsed += filled;
@@ -134,16 +140,17 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
         }
     }
 
-    protected IForgeBlockState getStateBelow() {
+    protected int getHeatRate() {
         final BlockPos posBelowBLock = pos.add(0, -1, 0);
-        return world.getBlockState(posBelowBLock);
-    }
+        final BlockState blockState = world.getBlockState(posBelowBLock);
+        final Block blockBelow = blockState.getBlock();
 
-    protected abstract int getHeatRate();
+        return registry.getHeatAmount(blockBelow);
+    }
 
     private void setContentLevel() {
         float items = itemStackHandler.getStackInSlot(0).getCount() * 3.0f;
-        float fluid = fluidTank.getFluidAmount() / (1000/3.0f);
+        float fluid = fluidTank.getFluidAmount() / (1000 / 3.0f);
 
         boolean is_fluid = (fluid >= items);
         int roundedResult = MathHelper.clamp(round(Math.max(items, fluid)), 1, 12);
@@ -157,7 +164,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
             }
         }
 
-        world.setBlockState(pos, this.getBlockState().with(CrucibleBaseBlock.LIGHT_LEVEL, getLightLevel()));
+        world.setBlockState(pos, this.getBlockState().with(CrucibleBlock.LIGHT_LEVEL, getLightLevel()));
         markDirty();
         world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE + Constants.BlockFlags.NOTIFY_NEIGHBORS);
     }
@@ -218,13 +225,26 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
 
     @Override
     public void read(CompoundNBT compoundNBT) {
+        registryName = compoundNBT.getString("registryName");
+        if (registry == null) {
+            try {
+                registry = (CrucibleRegistry) CrucibleRegistry.class.getField(registryName).get(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (itemStackHandler == null) itemStackHandler = createItemStackHandler();
         itemStackHandler.deserializeNBT(compoundNBT.getCompound("inv"));
+
+        if (fluidTank == null) fluidTank = createFluidTank();
         fluidTank.readFromNBT(compoundNBT);
 
         content = NBTUtil.readBlockState(compoundNBT.getCompound("content"));
 
         level = compoundNBT.getInt("level");
         solidAmount = compoundNBT.getInt("solidAmount");
+        currentItemAmount = compoundNBT.getInt("currentItemAmount");
         amountUsed = compoundNBT.getInt("amountUsed");
 
         super.read(compoundNBT);
@@ -232,6 +252,8 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
 
     @Override
     public CompoundNBT write(CompoundNBT compoundNBT) {
+        compoundNBT.putString("registryName", registryName);
+
         compoundNBT.put("inv", itemStackHandler.serializeNBT());
         fluidTank.writeToNBT(compoundNBT);
 
@@ -239,6 +261,7 @@ public abstract class CrucibleBaseTile extends TileEntity implements ITickableTi
 
         compoundNBT.putInt("level", level);
         compoundNBT.putInt("solidAmount", solidAmount);
+        compoundNBT.putInt("currentItemAmount", currentItemAmount);
         compoundNBT.putInt("amountUsed", amountUsed);
 
         return super.write(compoundNBT);

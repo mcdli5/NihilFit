@@ -3,16 +3,13 @@ package mcdli5.nihilfit;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.NonNullLazyValue;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import mcdli5.nihilfit.client.ClientSetup;
 import mcdli5.nihilfit.init.NF_Blocks;
 import mcdli5.nihilfit.init.NF_Items;
 import mcdli5.nihilfit.init.NF_Tiles;
-import mcdli5.nihilfit.setup.ClientSetup;
-import mcdli5.nihilfit.setup.Config;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,8 +31,6 @@ public final class NihilFit {
     public NihilFit() {
         final Marker marker = MarkerManager.getMarker("LOADING");
         LOGGER.debug(marker, "Hello from Nihil Fit!");
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
         NF_Blocks.setup();
         NF_Items.setup();

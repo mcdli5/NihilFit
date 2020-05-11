@@ -18,6 +18,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
+    id "io.freefair.lombok" version "5.0.1"
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
@@ -120,6 +121,18 @@ dependencies {
     // TOP
     // compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}:api")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-${topVersion}")
+}
+
+lombok {
+    version = lombokVersion
+    config['config.stopBubbling'] = 'true'
+}
+
+delombok {
+    format = [
+        'suppressWarnings': 'skip',
+        'javaLangAsFQN': 'skip'
+    ]
 }
 
 jar {
