@@ -19,7 +19,7 @@ The following will be included in this mod. More to follow once this is complete
 - Add Meshes
 - Add Resource Items for Vanilla Ores
 - ~~Add Hammers~~
-- Add Slik Worms and Infested trees
+- Add Silkworms and Infested Leaves
 - Add Crooks
 
 ## Building and setting up a development environment
