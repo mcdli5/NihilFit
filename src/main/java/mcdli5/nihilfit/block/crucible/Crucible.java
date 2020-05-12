@@ -2,7 +2,8 @@ package mcdli5.nihilfit.block.crucible;
 
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.BlockBuilder;
-import com.tterrag.registrate.util.RegistryEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.nihilfit.NihilFit;
 import mcdli5.nihilfit.init.NF_Blocks;
@@ -30,9 +31,9 @@ public enum Crucible {
         "Wood Crucible", Items.OAK_LOG, "has_oak_log"
     );
 
-    private static RegistryEntry<TileEntityType<CrucibleTile>> tileRegistryEntry;
+    private static RegistryEntry<TileEntityType<CrucibleTile>> tileEntry;
     private final BlockBuilder<CrucibleBlock, Registrate> blockBuilder;
-    private RegistryEntry<CrucibleBlock> blockRegistryEntry;
+    private BlockEntry<CrucibleBlock> blockEntry;
 
     Crucible(
         String name, Material material, String texture,
@@ -61,9 +62,9 @@ public enum Crucible {
                 .build(prov));
     }
 
-    public static RegistryEntry<TileEntityType<CrucibleTile>> getTileRegistryEntry() {
-        if (tileRegistryEntry == null) {
-            tileRegistryEntry = NihilFit.registrate()
+    public static RegistryEntry<TileEntityType<CrucibleTile>> getTileEntry() {
+        if (tileEntry == null) {
+            tileEntry = NihilFit.registrate()
                 .tileEntity("crucible", CrucibleTile::new)
                 .validBlocks(
                     NonNullSupplier.of(NF_Blocks.CRUCIBLE_STONE),
@@ -71,11 +72,11 @@ public enum Crucible {
                 .register();
         }
 
-        return tileRegistryEntry;
+        return tileEntry;
     }
 
-    public final RegistryEntry<CrucibleBlock> getBlockRegistryEntry() {
-        if (blockRegistryEntry == null) blockRegistryEntry = blockBuilder.register();
-        return blockRegistryEntry;
+    public final BlockEntry<CrucibleBlock> getBlockEntry() {
+        if (blockEntry == null) blockEntry = blockBuilder.register();
+        return blockEntry;
     }
 }

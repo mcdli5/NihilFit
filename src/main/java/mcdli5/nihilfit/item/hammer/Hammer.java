@@ -2,7 +2,7 @@ package mcdli5.nihilfit.item.hammer;
 
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;
-import com.tterrag.registrate.util.RegistryEntry;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import mcdli5.nihilfit.NihilFit;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
@@ -17,14 +17,13 @@ public enum Hammer {
     WOOD("hammer_wood", ItemTier.WOOD, Items.OAK_PLANKS, "has_oak_planks", "Wood Hammer");
 
     private final ItemBuilder<HammerToolItem, Registrate> itemBuilder;
-    private RegistryEntry<HammerToolItem> registryEntry;
+    private ItemEntry<HammerToolItem> itemEntry;
 
     Hammer(String name, ItemTier itemTier, Item itemToBeMadeOf, String criterion, String lang) {
         itemBuilder = NihilFit.registrate()
             .item(name, b -> new HammerToolItem(itemTier))
             .model((ctx, prov) -> prov
-                .withExistingParent(ctx.getName(), "item/handheld")
-                .texture("layer0", prov.modLoc("item/" + ctx.getName())))
+                .handheld(ctx::getEntry, prov.modLoc("item/" + ctx.getName())))
             .recipe((ctx, prov) -> ShapedRecipeBuilder
                 .shapedRecipe(ctx.getEntry())
                 .patternLine(" X ")
@@ -37,8 +36,8 @@ public enum Hammer {
             .lang(lang);
     }
 
-    public final RegistryEntry<HammerToolItem> getRegistryEntry() {
-        if (registryEntry == null) registryEntry = itemBuilder.register();
-        return registryEntry;
+    public final ItemEntry<HammerToolItem> getItemEntry() {
+        if (itemEntry == null) itemEntry = itemBuilder.register();
+        return itemEntry;
     }
 }

@@ -2,7 +2,7 @@ package mcdli5.nihilfit.block;
 
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.BlockBuilder;
-import com.tterrag.registrate.util.RegistryEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import mcdli5.nihilfit.NihilFit;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.SoundType;
@@ -18,7 +18,7 @@ public enum CrushedBlock {
     NETHERRACK("crushedblock_netherrack", SoundType.GROUND, "Crushed Netherrack");
 
     private final BlockBuilder<FallingBlock, Registrate> blockBuilder;
-    private RegistryEntry<FallingBlock> registryEntry;
+    private BlockEntry<FallingBlock> blockEntry;
 
     CrushedBlock(String name, SoundType soundType, String lang) {
         blockBuilder = NihilFit.registrate()
@@ -31,8 +31,8 @@ public enum CrushedBlock {
             .item().build();
     }
 
-    public final RegistryEntry<FallingBlock> getRegistryEntry() {
-        if (registryEntry == null) registryEntry = blockBuilder.register();
-        return registryEntry;
+    public final BlockEntry<FallingBlock> getBlockEntry() {
+        if (blockEntry == null) blockEntry = blockBuilder.register();
+        return blockEntry;
     }
 }

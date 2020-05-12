@@ -73,7 +73,7 @@ public final class CrucibleRegistry {
         registry.put(Items.SAND, new Meltable(lava, 100));
 
         for (CrushedBlock crushedblock : CrushedBlock.values()) {
-            Item key = crushedblock.getRegistryEntry().get().asItem();
+            Item key = crushedblock.getBlockEntry().get().asItem();
             registry.put(key, new Meltable(lava, 50));
         }
 
