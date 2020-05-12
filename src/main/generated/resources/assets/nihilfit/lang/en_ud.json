@@ -7,10 +7,14 @@
   "block.nihilfit.crushedblock_end_stone": "\u01DDuo\u0287S pu\u018E p\u01DD\u0265sn\u0279\u0186",
   "block.nihilfit.crushedblock_granite": "\u01DD\u0287\u0131u\u0250\u0279\u2141 p\u01DD\u0265sn\u0279\u0186",
   "block.nihilfit.crushedblock_netherrack": "\u029E\u0254\u0250\u0279\u0279\u01DD\u0265\u0287\u01DDN p\u01DD\u0265sn\u0279\u0186",
+  "item.nihilfit.ancient_spores": "s\u01DD\u0279odS \u0287u\u01DD\u0131\u0254u\u2C6F",
+  "item.nihilfit.grass_seeds": "sp\u01DD\u01DDS ss\u0250\u0279\u2141",
   "item.nihilfit.hammer_diamond": "\u0279\u01DD\u026F\u026F\u0250H puo\u026F\u0250\u0131\u15E1",
   "item.nihilfit.hammer_gold": "\u0279\u01DD\u026F\u026F\u0250H p\u05DFo\u2141",
   "item.nihilfit.hammer_iron": "\u0279\u01DD\u026F\u026F\u0250H uo\u0279I",
   "item.nihilfit.hammer_stone": "\u0279\u01DD\u026F\u026F\u0250H \u01DDuo\u0287S",
   "item.nihilfit.hammer_wood": "\u0279\u01DD\u026F\u026F\u0250H pooM",
+  "item.nihilfit.silkworm": "\u026F\u0279o\u028D\u029E\u05DF\u0131S",
+  "item.nihilfit.silkworm_cooked": "\u026F\u0279o\u028D\u029E\u05DF\u0131S p\u01DD\u029Eoo\u0186",
   "itemGroup.nihilfit": "\u0287\u0131\u2132 \u05DF\u0131\u0265\u0131N"
 }

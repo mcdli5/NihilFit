@@ -7,10 +7,14 @@
   "block.nihilfit.crushedblock_end_stone": "Crushed End Stone",
   "block.nihilfit.crushedblock_granite": "Crushed Granite",
   "block.nihilfit.crushedblock_netherrack": "Crushed Netherrack",
+  "item.nihilfit.ancient_spores": "Ancient Spores",
+  "item.nihilfit.grass_seeds": "Grass Seeds",
   "item.nihilfit.hammer_diamond": "Diamond Hammer",
   "item.nihilfit.hammer_gold": "Gold Hammer",
   "item.nihilfit.hammer_iron": "Iron Hammer",
   "item.nihilfit.hammer_stone": "Stone Hammer",
   "item.nihilfit.hammer_wood": "Wood Hammer",
+  "item.nihilfit.silkworm": "Silkworm",
+  "item.nihilfit.silkworm_cooked": "Cooked Silkworm",
   "itemGroup.nihilfit": "Nihil Fit"
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "nihilfit:silkworm"
+  },
+  "result": "nihilfit:silkworm_cooked",
+  "experience": 0.7,
+  "cookingtime": 200
+}
