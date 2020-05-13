@@ -3,7 +3,6 @@ package mcdli5.nihilfit;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.NonNullLazyValue;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import mcdli5.nihilfit.client.ClientSetup;
 import mcdli5.nihilfit.init.NF_Blocks;
 import mcdli5.nihilfit.init.NF_Items;
 import mcdli5.nihilfit.init.NF_Tiles;

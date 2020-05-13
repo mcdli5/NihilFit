@@ -3,10 +3,10 @@ package mcdli5.nihilfit.init;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import mcdli5.nihilfit.NihilFit;
+import mcdli5.nihilfit.item.blockreplacer.BlockReplacer;
+import mcdli5.nihilfit.item.blockreplacer.BlockReplacerItem;
 import mcdli5.nihilfit.item.hammer.Hammer;
 import mcdli5.nihilfit.item.hammer.HammerToolItem;
-import mcdli5.nihilfit.item.resource.Resource;
-import mcdli5.nihilfit.item.resource.ResourceItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 
@@ -19,9 +19,9 @@ public final class NF_Items {
     public static final ItemEntry<HammerToolItem> HAMMER_WOOD = Hammer.WOOD.getItemEntry();
 
     // Resources
-    public static final ItemEntry<ResourceItem> ANCIENT_SPORES = Resource.ANCIENT_SPORES.getItemEntry();
-    public static final ItemEntry<ResourceItem> GRASS_SEEDS = Resource.GRASS_SEEDS.getItemEntry();
-    public static final ItemEntry<ResourceItem> SILKWORM = Resource.SILKWORM.getItemEntry();
+    public static final ItemEntry<BlockReplacerItem> ANCIENT_SPORES = BlockReplacer.ANCIENT_SPORES.getItemEntry();
+    public static final ItemEntry<BlockReplacerItem> GRASS_SEEDS = BlockReplacer.GRASS_SEEDS.getItemEntry();
+    public static final ItemEntry<BlockReplacerItem> SILKWORM = BlockReplacer.SILKWORM.getItemEntry();
 
     // Cooked Silkworm
     public static final ItemEntry<Item> SILKWORM_COOKED = NihilFit.registrate()
