@@ -39,8 +39,8 @@ public final class CrucibleBakedModel extends BakedModelWrapper<IBakedModel> imp
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
-        BlockState content = extraData.getData(CrucibleTile.CONTENT);
-        Integer level = extraData.getData(CrucibleTile.LEVEL);
+        BlockState content = extraData.getData(CrucibleTileEntity.CONTENT);
+        Integer level = extraData.getData(CrucibleTileEntity.LEVEL);
 
         List<BakedQuad> retQuads = new ArrayList<>(this.originalModel.getQuads(state, side, rand, extraData));
 

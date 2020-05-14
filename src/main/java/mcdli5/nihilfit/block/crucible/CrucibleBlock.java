@@ -42,9 +42,9 @@ public final class CrucibleBlock extends Block {
         IBooleanFunction.ONLY_FIRST
     );
 
-    private final Supplier<CrucibleTile> tileSupplier;
+    private final Supplier<CrucibleTileEntity> tileSupplier;
 
-    public CrucibleBlock(Properties builder, Supplier<CrucibleTile> tileSupplier) {
+    public CrucibleBlock(Properties builder, Supplier<CrucibleTileEntity> tileSupplier) {
         super(builder);
         this.tileSupplier = tileSupplier;
 
@@ -75,8 +75,8 @@ public final class CrucibleBlock extends Block {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote) {
             final TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof CrucibleTile) {
-                CrucibleTile.CrucibleFluidTank crucibleFluidTank = ((CrucibleTile) tileEntity).fluidTank;
+            if (tileEntity instanceof CrucibleTileEntity) {
+                CrucibleTileEntity.CrucibleFluidTank crucibleFluidTank = ((CrucibleTileEntity) tileEntity).fluidTank;
 
                 FluidStack fluidStack = crucibleFluidTank.getFluid();
                 SoundEvent soundevent = fluidStack.getFluid().getAttributes().getFillSound();
@@ -97,7 +97,7 @@ public final class CrucibleBlock extends Block {
                 }
                 // Let's try to insert the meltable (if the player is holding one)
                 else {
-                    IItemHandler itemHandler = ((CrucibleTile) tileEntity).itemStackHandler;
+                    IItemHandler itemHandler = ((CrucibleTileEntity) tileEntity).itemStackHandler;
                     ItemStack heldItem = new ItemStack(player.getHeldItem(handIn).getItem(), 1);
 
                     // Insert one item at a time
