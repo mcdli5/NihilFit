@@ -18,6 +18,7 @@ The following will be included in this mod. More to follow once this is complete
 - Add Sieves
 - Add Meshes
 - Add Resource Items for Vanilla Ores
+- Add Barrels
 - ~~Add Hammers~~
 - Add Silkworms and Infested Leaves
 - Add Crooks
