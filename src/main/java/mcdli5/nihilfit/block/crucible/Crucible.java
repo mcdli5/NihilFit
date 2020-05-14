@@ -22,22 +22,22 @@ import static mcdli5.nihilfit.block.crucible.CrucibleRegistry.CRUCIBLE_WOOD_REGI
 public enum Crucible {
     STONE(
         "crucible_stone", Material.ROCK, "block/stone_bricks",
-        () -> new CrucibleTileEntity(CRUCIBLE_STONE_REGISTRY), ToolType.PICKAXE,
+        () -> new CrucibleTile(CRUCIBLE_STONE_REGISTRY), ToolType.PICKAXE,
         "Stone Crucible", Items.STONE_BRICKS, "has_stone_brick"
     ),
     WOOD(
         "crucible_wood", Material.WOOD, "block/oak_log",
-        () -> new CrucibleTileEntity(CRUCIBLE_WOOD_REGISTRY), ToolType.AXE,
+        () -> new CrucibleTile(CRUCIBLE_WOOD_REGISTRY), ToolType.AXE,
         "Wood Crucible", Items.OAK_LOG, "has_oak_log"
     );
 
-    private static RegistryEntry<TileEntityType<CrucibleTileEntity>> tileEntry;
+    private static RegistryEntry<TileEntityType<CrucibleTile>> tileEntry;
     private final BlockBuilder<CrucibleBlock, Registrate> blockBuilder;
     private BlockEntry<CrucibleBlock> blockEntry;
 
     Crucible(
         String name, Material material, String texture,
-        Supplier<CrucibleTileEntity> tileSupplier, ToolType toolType,
+        Supplier<CrucibleTile> tileSupplier, ToolType toolType,
         String lang, Item itemToBeMadeOf, String criterion
     ) {
         blockBuilder = NihilFit.registrate()
@@ -62,10 +62,10 @@ public enum Crucible {
                 .build(prov));
     }
 
-    public static RegistryEntry<TileEntityType<CrucibleTileEntity>> getTileEntry() {
+    public static RegistryEntry<TileEntityType<CrucibleTile>> getTileEntry() {
         if (tileEntry == null) {
             tileEntry = NihilFit.registrate()
-                .tileEntity("crucible", CrucibleTileEntity::new)
+                .tileEntity("crucible", CrucibleTile::new)
                 .validBlocks(
                     NonNullSupplier.of(NF_Blocks.CRUCIBLE_STONE),
                     NonNullSupplier.of(NF_Blocks.CRUCIBLE_WOOD))

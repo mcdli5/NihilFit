@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 
 import static java.lang.Math.round;
 
-public final class CrucibleTileEntity extends TileEntity implements ITickableTileEntity {
+public final class CrucibleTile extends TileEntity implements ITickableTileEntity {
     private static final int CAPACITY = 4;
 
     public static final ModelProperty<Integer> LEVEL = new ModelProperty<>();
@@ -56,11 +56,11 @@ public final class CrucibleTileEntity extends TileEntity implements ITickableTil
     private int currentItemAmount = 0;
     private int ticksSinceLast = 0;
 
-    public CrucibleTileEntity() {
+    public CrucibleTile() {
         super(NF_Tiles.CRUCIBLE.get());
     }
 
-    public CrucibleTileEntity(CrucibleRegistry registry) {
+    public CrucibleTile(CrucibleRegistry registry) {
         super(NF_Tiles.CRUCIBLE.get());
         this.registry = registry;
         this.registryName = registry.getName();
