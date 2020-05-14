@@ -31,9 +31,9 @@ public final class NihilFit {
         final Marker marker = MarkerManager.getMarker("LOADING");
         LOGGER.debug(marker, "Hello from Nihil Fit!");
 
-        NF_Blocks.setup();
-        NF_Items.setup();
-        NF_Tiles.setup();
+        NF_Blocks.init();
+        NF_Items.init();
+        NF_Tiles.init();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setup);
     }

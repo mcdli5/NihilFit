@@ -19,6 +19,6 @@ public final class NF_Blocks {
     public static final BlockEntry<CrucibleBlock> CRUCIBLE_STONE = Crucible.STONE.getBlockEntry();
     public static final BlockEntry<CrucibleBlock> CRUCIBLE_WOOD = Crucible.WOOD.getBlockEntry();
 
-    public static void setup() {
+    public static void init() {
     }
 }

@@ -9,6 +9,6 @@ public final class NF_Tiles {
     // Crucible Tile
     public static final RegistryEntry<TileEntityType<CrucibleTile>> CRUCIBLE = Crucible.getTileEntry();
 
-    public static void setup() {
+    public static void init() {
     }
 }

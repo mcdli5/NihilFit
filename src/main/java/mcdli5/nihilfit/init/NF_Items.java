@@ -24,6 +24,6 @@ public final class NF_Items {
     // Cooked Silkworm
     public static final ItemEntry<CookedSilkwormItem> SILKWORM_COOKED = CookedSilkworm.getItemEntry();
 
-    public static void setup() {
+    public static void init() {
     }
 }
