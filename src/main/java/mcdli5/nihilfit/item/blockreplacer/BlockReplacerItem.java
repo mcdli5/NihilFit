@@ -11,8 +11,8 @@ public final class BlockReplacerItem extends Item {
     private final NonNullFunction<Block, Boolean> checker;
     private final Block newBlock;
 
-    public BlockReplacerItem(Properties properties, NonNullFunction<Block, Boolean> checker, Block newBlock) {
-        super(properties);
+    public BlockReplacerItem(Properties builder, NonNullFunction<Block, Boolean> checker, Block newBlock) {
+        super(builder);
         this.checker = checker;
         this.newBlock = newBlock;
     }
