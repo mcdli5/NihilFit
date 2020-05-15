@@ -4,10 +4,10 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import mcdli5.nihilfit.block.CrushedBlock;
 import mcdli5.nihilfit.block.crucible.Crucible;
 import mcdli5.nihilfit.block.crucible.CrucibleBlock;
-import mcdli5.nihilfit.block.leaves.InfestedLeavesBlock;
 import mcdli5.nihilfit.block.leaves.InfestingLeavesBlock;
 import mcdli5.nihilfit.block.leaves.Leaves;
 import net.minecraft.block.FallingBlock;
+import net.minecraft.block.LeavesBlock;
 
 public final class NF_Blocks {
     // Crushed Blocks
@@ -24,7 +24,7 @@ public final class NF_Blocks {
 
     // Leaves
     public static final BlockEntry<InfestingLeavesBlock> INFESTING_LEAVES = Leaves.INFESTING.getBlockEntry();
-    public static final BlockEntry<InfestedLeavesBlock> INFESTED_LEAVES = Leaves.INFESTED.getBlockEntry();
+    public static final BlockEntry<LeavesBlock> INFESTED_LEAVES = Leaves.INFESTED.getBlockEntry();
 
     public static void init() {
     }

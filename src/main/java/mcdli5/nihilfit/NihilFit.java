@@ -3,12 +3,30 @@ package mcdli5.nihilfit;
 import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.util.NonNullLazyValue;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import mcdli5.nihilfit.block.crucible.CrucibleBakedModel;
 import mcdli5.nihilfit.init.NF_Blocks;
 import mcdli5.nihilfit.init.NF_Items;
 import mcdli5.nihilfit.init.NF_Tiles;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.FireBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.FoliageColors;
+import net.minecraft.world.biome.BiomeColors;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +53,44 @@ public final class NihilFit {
         NF_Items.init();
         NF_Tiles.init();
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setup);
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        ((FireBlock) Blocks.FIRE).setFireInfo(NF_Blocks.INFESTING_LEAVES.get(), 30, 60);
+        ((FireBlock) Blocks.FIRE).setFireInfo(NF_Blocks.INFESTED_LEAVES.get(), 30, 60);
+
+        ComposterBlock.CHANCES.put(NF_Blocks.INFESTING_LEAVES.get().asItem(), 0.3F);
+        ComposterBlock.CHANCES.put(NF_Blocks.INFESTED_LEAVES.get().asItem(), 0.3F);
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+        ModelLoaderRegistry.registerLoader(
+            new ResourceLocation(NF_ID, "crucible_loader"),
+            new CrucibleBakedModel.CrucibleModelLoader()
+        );
+
+        RenderTypeLookup.setRenderLayer(NF_Blocks.INFESTING_LEAVES.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(NF_Blocks.INFESTED_LEAVES.get(), RenderType.getCutoutMipped());
+
+        BlockColors blockcolors = Minecraft.getInstance().getBlockColors();
+        ItemColors itemcolors = Minecraft.getInstance().getItemColors();
+
+        // TODO: Change colors based on the state
+        blockcolors.register(
+            (state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefault(),
+            NF_Blocks.INFESTING_LEAVES.get()
+        );
+
+        itemcolors.register(
+            (stack, tintIndex) -> {
+                BlockState blockstate = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
+                return blockcolors.getColor(blockstate, null, null, tintIndex);
+            },
+            NF_Blocks.INFESTING_LEAVES.get()
+        );
     }
 
     public static Registrate registrate() {

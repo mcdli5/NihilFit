@@ -39,7 +39,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "nihilfit:infested_leaves"
+              "name": "minecraft:string"
             }
           ]
         }

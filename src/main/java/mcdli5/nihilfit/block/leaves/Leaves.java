@@ -8,11 +8,12 @@ import mcdli5.nihilfit.NihilFit;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.item.Items;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 
 public final class Leaves {
     public static final LeavesProvider<InfestingLeavesBlock> INFESTING;
-    public static final LeavesProvider<InfestedLeavesBlock> INFESTED;
+    public static final LeavesProvider<LeavesBlock> INFESTED;
 
     static {
         INFESTING = new LeavesProvider<>(NihilFit.registrate()
@@ -28,7 +29,7 @@ public final class Leaves {
         );
 
         INFESTED = new LeavesProvider<>(NihilFit.registrate()
-            .block("infested_leaves", InfestedLeavesBlock::new)
+            .block("infested_leaves", LeavesBlock::new)
             .initialProperties(() -> Blocks.OAK_LEAVES)
             .blockstate((ctx, prov) -> prov.simpleBlock(
                 ctx.getEntry(),
@@ -37,7 +38,7 @@ public final class Leaves {
                     .texture("all", prov.mcLoc("block/oak_leaves"))))
             .loot((prov, type) -> prov
                 .registerLootTable(type, RegistrateBlockLootTables
-                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(type))))
+                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(Items.STRING))))
             .item().build()
         );
     }
