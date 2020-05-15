@@ -4,22 +4,24 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.nihilfit.NihilFit;
+import mcdli5.nihilfit.init.NF_Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 
 public enum BlockReplacer {
-    ANCIENT_SPORES((block) -> block.equals(Blocks.DIRT), Blocks.MYCELIUM),
-    GRASS_SEEDS((block) -> block.equals(Blocks.DIRT), Blocks.GRASS_BLOCK),
-    SILKWORM((block) -> block instanceof LeavesBlock, Blocks.DIRT);
+    ANCIENT_SPORES((block) -> block.equals(Blocks.DIRT), () -> Blocks.MYCELIUM),
+    GRASS_SEEDS((block) -> block.equals(Blocks.DIRT), () -> Blocks.GRASS_BLOCK),
+    SILKWORM((block) -> block instanceof LeavesBlock, NF_Blocks.INFESTING_LEAVES::get);
 
     private final ItemBuilder<BlockReplacerItem, Registrate> itemBuilder;
     private ItemEntry<BlockReplacerItem> itemEntry;
 
-    BlockReplacer(NonNullFunction<Block, Boolean> checker, Block newBlock) {
+    BlockReplacer(NonNullFunction<Block, Boolean> checker, NonNullSupplier<Block> blockSupplier) {
         itemBuilder = NihilFit.registrate()
-            .item(this.name().toLowerCase(), (b) -> new BlockReplacerItem(b, checker, newBlock))
+            .item(this.name().toLowerCase(), (b) -> new BlockReplacerItem(b, checker, blockSupplier))
             .properties(properties -> properties.group(NihilFit.NF_GROUP));
     }
 

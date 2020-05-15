@@ -1,6 +1,7 @@
 package mcdli5.nihilfit.item.blockreplacer;
 
 import com.tterrag.registrate.util.nullness.NonNullFunction;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -11,10 +12,10 @@ public final class BlockReplacerItem extends Item {
     private final NonNullFunction<Block, Boolean> checker;
     private final Block newBlock;
 
-    public BlockReplacerItem(Properties builder, NonNullFunction<Block, Boolean> checker, Block newBlock) {
+    public BlockReplacerItem(Properties builder, NonNullFunction<Block, Boolean> checker, NonNullSupplier<Block> blockSupplier) {
         super(builder);
         this.checker = checker;
-        this.newBlock = newBlock;
+        this.newBlock = blockSupplier.get();
     }
 
     @Override
