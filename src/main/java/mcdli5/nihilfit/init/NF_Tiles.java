@@ -13,7 +13,7 @@ public final class NF_Tiles {
 
     // Infesting Leaves Tile
     public static final RegistryEntry<TileEntityType<InfestingLeavesTile>> INFESTING_LEAVES = Leaves.getTileEntry();
-    
+
     public static void init() {
     }
 }

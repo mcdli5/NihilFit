@@ -36,17 +36,17 @@ import java.util.function.Predicate;
 import static java.lang.Math.round;
 
 public final class CrucibleTile extends TileEntity implements ITickableTileEntity {
-    private static final int CAPACITY = 4;
-
     public static final ModelProperty<Integer> LEVEL = new ModelProperty<>();
     public static final ModelProperty<BlockState> CONTENT = new ModelProperty<>();
+    private static final int CAPACITY = 4;
+
+    protected ItemStackHandler itemStackHandler;
+    protected CrucibleFluidTank fluidTank;
+    private LazyOptional<ItemStackHandler> itemStackHandlerLazyOptional;
+    private LazyOptional<CrucibleFluidTank> fluidTankLazyOptional;
 
     private CrucibleRegistry registry;
     private String registryName;
-    protected ItemStackHandler itemStackHandler;
-    private LazyOptional<ItemStackHandler> itemStackHandlerLazyOptional;
-    protected CrucibleFluidTank fluidTank;
-    private LazyOptional<CrucibleFluidTank> fluidTankLazyOptional;
 
     private int level = 0;
     private BlockState content = null;

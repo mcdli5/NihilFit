@@ -60,6 +60,10 @@ public final class NihilFit {
         modEventBus.addListener(this::clientSetup);
     }
 
+    public static Registrate registrate() {
+        return REGISTRATE.getValue();
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         ((FireBlock) Blocks.FIRE).setFireInfo(NF_Blocks.INFESTING_LEAVES.get(), 30, 60);
         ((FireBlock) Blocks.FIRE).setFireInfo(NF_Blocks.INFESTED_LEAVES.get(), 30, 60);
@@ -98,10 +102,6 @@ public final class NihilFit {
             (stack, tintIndex) -> FoliageColors.getDefault(),
             NF_Blocks.INFESTING_LEAVES.get()
         );
-    }
-
-    public static Registrate registrate() {
-        return REGISTRATE.getValue();
     }
 
     final static class NF_Group extends ItemGroup {
