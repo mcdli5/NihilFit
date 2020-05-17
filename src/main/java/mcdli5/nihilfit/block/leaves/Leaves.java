@@ -4,16 +4,22 @@ import com.tterrag.registrate.Registrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import mcdli5.nihilfit.NihilFit;
+import mcdli5.nihilfit.init.NF_Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.Items;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 
 public final class Leaves {
     public static final LeavesProvider<InfestingLeavesBlock> INFESTING;
     public static final LeavesProvider<LeavesBlock> INFESTED;
+
+    private static RegistryEntry<TileEntityType<InfestingLeavesTile>> tileEntry;
 
     static {
         INFESTING = new LeavesProvider<>(NihilFit.registrate()
@@ -38,9 +44,20 @@ public final class Leaves {
                     .texture("all", prov.mcLoc("block/oak_leaves"))))
             .loot((prov, type) -> prov
                 .registerLootTable(type, RegistrateBlockLootTables
-                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(Items.STRING))))
+                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(Items.STRING)))) // TODO: add a chance of silkworms
             .item().build()
         );
+    }
+
+    public static RegistryEntry<TileEntityType<InfestingLeavesTile>> getTileEntry() {
+        if (tileEntry == null) {
+            tileEntry = NihilFit.registrate()
+                .tileEntity("crucible", InfestingLeavesTile::new)
+                .validBlocks(NonNullSupplier.of(NF_Blocks.INFESTING_LEAVES))
+                .register();
+        }
+
+        return tileEntry;
     }
 
     public static class LeavesProvider<T extends LeavesBlock> {

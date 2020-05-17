@@ -6,11 +6,12 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockReader;
 
 public final class InfestingLeavesBlock extends LeavesBlock {
     public static final BooleanProperty NEARBY_LEAVES = BooleanProperty.create("nearby_leaves");
-    public static final IntegerProperty INFESTING_STAGE = IntegerProperty.create("infesting_stage", 0, 7);
+    public static final IntegerProperty INFESTING_STAGE = IntegerProperty.create("infesting_stage", 0, 9); // TODO: Can we use a float instead?
 
     public InfestingLeavesBlock(Properties properties) {
         super(properties);
@@ -30,12 +31,12 @@ public final class InfestingLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
-        return state.get(INFESTING_STAGE) < 7 || state.get(NEARBY_LEAVES) || (state.get(DISTANCE) == 7 && !state.get(PERSISTENT));
+    public boolean hasTileEntity(BlockState state) {
+        return true;
     }
 
     @Override
-    public int tickRate(IWorldReader world) {
-        return 1;
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new InfestingLeavesTile();
     }
 }
