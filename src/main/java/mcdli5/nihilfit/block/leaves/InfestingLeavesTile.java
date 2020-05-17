@@ -10,10 +10,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class InfestingLeavesTile extends TileEntity implements ITickableTileEntity {
-    private final int RATE_OF_PROGRESS = 600; // 800, 0.00125, 0.0625
+    private static final int TICKS_TO_BECOME_INFESTED = 600;
+    private static final int RATE_OF_PROGRESS = (int) (TICKS_TO_BECOME_INFESTED / 100.0);
 
     private int progress = 0;
-    private int doProgress = (int) (RATE_OF_PROGRESS / 100.0);
+    private int doProgress = RATE_OF_PROGRESS;
 
     public InfestingLeavesTile() {
         super(NF_Tiles.INFESTING_LEAVES.get());
@@ -33,7 +34,7 @@ public class InfestingLeavesTile extends TileEntity implements ITickableTileEnti
 
             // TODO: trySpread
             setInfestingState();
-            doProgress = (int) (RATE_OF_PROGRESS / 100.0);
+            doProgress = RATE_OF_PROGRESS;
         } else {
             doProgress--;
         }
@@ -53,7 +54,7 @@ public class InfestingLeavesTile extends TileEntity implements ITickableTileEnti
     private void setInfestingState() {
         final IntegerProperty stageProperty = InfestingLeavesBlock.INFESTING_STAGE;
         final int oldStage = getBlockState().get(stageProperty);
-        final int stage = MathHelper.clamp(Math.round((progress * 10.0F) / 100.0F), 0, 9); // TODO: use a float!
+        final int stage = MathHelper.clamp((progress / 10), 0, 9);
 
         if (stage > oldStage) {
             world.setBlockState(pos, getBlockState().with(stageProperty, stage));

@@ -11,7 +11,11 @@ import net.minecraft.world.IBlockReader;
 
 public final class InfestingLeavesBlock extends LeavesBlock {
     public static final BooleanProperty NEARBY_LEAVES = BooleanProperty.create("nearby_leaves");
-    public static final IntegerProperty INFESTING_STAGE = IntegerProperty.create("infesting_stage", 0, 9); // TODO: Can we use a float instead?
+    public static final IntegerProperty INFESTING_STAGE = IntegerProperty.create("infesting_stage", 0, 9);
+    public static final int[] COLOR_MAP = new int[]{
+        -10367439, -8727715, -7350150, -6169199, -5119323,
+        -4134985, -3216185, -2362921, -1509915, -787726
+    };
 
     public InfestingLeavesBlock(Properties properties) {
         super(properties);

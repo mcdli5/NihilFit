@@ -8,7 +8,6 @@ import mcdli5.nihilfit.block.leaves.InfestingLeavesBlock;
 import mcdli5.nihilfit.init.NF_Blocks;
 import mcdli5.nihilfit.init.NF_Items;
 import mcdli5.nihilfit.init.NF_Tiles;
-import mcdli5.nihilfit.util.ColorUtils;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
@@ -21,7 +20,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.FoliageColors;
-import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +30,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-
-import java.awt.*;
 
 @Mod(NihilFit.NF_ID)
 public final class NihilFit {
@@ -84,19 +80,16 @@ public final class NihilFit {
         BlockColors blockcolors = Minecraft.getInstance().getBlockColors();
         ItemColors itemcolors = Minecraft.getInstance().getItemColors();
 
-        blockcolors.register((state, world, pos, tintIndex) -> {
-            if (world == null || pos == null) {
-                return FoliageColors.getDefault();
-            } else {
-                Color oldColor = new Color(BiomeColors.getFoliageColor(world, pos));
-                Color newColor = ColorUtils.average(
-                    Color.WHITE,
-                    new Color(oldColor.getRed() + 10, oldColor.getGreen() + 10, oldColor.getBlue() + 10),
-                    ((state.get(InfestingLeavesBlock.INFESTING_STAGE) * 1.0F) / 10.0F) // TODO: Fix this conversion
-                );
-                return newColor.getRGB();
-            }
-        }, NF_Blocks.INFESTING_LEAVES.get());
+        blockcolors.register(
+            (state, world, pos, tintIndex) -> {
+                if (world == null || pos == null) {
+                    return FoliageColors.getDefault();
+                } else {
+                    return InfestingLeavesBlock.COLOR_MAP[state.get(InfestingLeavesBlock.INFESTING_STAGE)];
+                }
+            },
+            NF_Blocks.INFESTING_LEAVES.get()
+        );
 
         itemcolors.register(
             (stack, tintIndex) -> FoliageColors.getDefault(),
