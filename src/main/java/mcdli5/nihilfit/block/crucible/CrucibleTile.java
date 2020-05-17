@@ -104,7 +104,7 @@ public final class CrucibleTile extends TileEntity implements ITickableTileEntit
 
     @Override
     public void tick() {
-        if (world.isRemote) return;
+        if (world != null && world.isRemote) return;
 
         if (++ticksSinceLast >= 10) {
             ticksSinceLast = 0;
