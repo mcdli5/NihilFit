@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "nihilfit:silkworm_cooked_from"
+      "nihilfit:silkworm_cooked_from_silkworm_smelting"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "nihilfit:silkworm_cooked_from"
+        "recipe": "nihilfit:silkworm_cooked_from_silkworm_smelting"
       }
     }
   },

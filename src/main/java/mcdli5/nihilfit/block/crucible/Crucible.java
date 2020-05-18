@@ -12,7 +12,6 @@ import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.common.ToolType;
 
 import java.util.function.Supplier;
 
@@ -22,12 +21,12 @@ import static mcdli5.nihilfit.block.crucible.CrucibleRegistry.CRUCIBLE_WOOD_REGI
 public enum Crucible {
     STONE(
         "crucible_stone", Material.ROCK, "block/stone_bricks",
-        () -> new CrucibleTile(CRUCIBLE_STONE_REGISTRY), ToolType.PICKAXE,
+        () -> new CrucibleTile(CRUCIBLE_STONE_REGISTRY),
         "Stone Crucible", Items.STONE_BRICKS, "has_stone_brick"
     ),
     WOOD(
         "crucible_wood", Material.WOOD, "block/oak_log",
-        () -> new CrucibleTile(CRUCIBLE_WOOD_REGISTRY), ToolType.AXE,
+        () -> new CrucibleTile(CRUCIBLE_WOOD_REGISTRY),
         "Wood Crucible", Items.OAK_LOG, "has_oak_log"
     );
 
@@ -37,14 +36,13 @@ public enum Crucible {
 
     Crucible(
         String name, Material material, String texture,
-        Supplier<CrucibleTile> tileSupplier, ToolType toolType,
+        Supplier<CrucibleTile> tileSupplier,
         String lang, Item itemToBeMadeOf, String criterion
     ) {
         blockBuilder = NihilFit.registrate()
             .block(name, material, (b) -> new CrucibleBlock(b, tileSupplier))
             .properties(properties -> properties
-                .hardnessAndResistance(2.0f)
-                .harvestTool(toolType))
+                .hardnessAndResistance(2.0f))
             .blockstate((ctx, prov) -> prov.simpleBlock(
                 ctx.getEntry(),
                 prov.models().getBuilder(ctx.getName())
