@@ -17,7 +17,7 @@ import net.minecraft.world.storage.loot.ItemLootEntry;
 
 public final class Leaves {
     public static final LeavesProvider<InfestingLeavesBlock> INFESTING;
-    public static final LeavesProvider<LeavesBlock> INFESTED;
+    public static final LeavesProvider<InfestedLeavesBlock> INFESTED;
 
     private static RegistryEntry<TileEntityType<InfestingLeavesTile>> tileEntry;
 
@@ -35,7 +35,7 @@ public final class Leaves {
         );
 
         INFESTED = new LeavesProvider<>(NihilFit.registrate()
-            .block("infested_leaves", LeavesBlock::new)
+            .block("infested_leaves", InfestedLeavesBlock::new)
             .initialProperties(() -> Blocks.OAK_LEAVES)
             .blockstate((ctx, prov) -> prov.simpleBlock(
                 ctx.getEntry(),
@@ -44,7 +44,7 @@ public final class Leaves {
                     .texture("all", prov.mcLoc("block/oak_leaves"))))
             .loot((prov, type) -> prov
                 .registerLootTable(type, RegistrateBlockLootTables
-                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(Items.STRING)))) // TODO: add a chance of silkworms
+                    .droppingWithSilkTouchOrShears(type, ItemLootEntry.builder(Items.STRING)))) // TODO: add a chance of silkworms and fix string chance
             .item().build()
         );
     }
@@ -52,7 +52,7 @@ public final class Leaves {
     public static RegistryEntry<TileEntityType<InfestingLeavesTile>> getTileEntry() {
         if (tileEntry == null) {
             tileEntry = NihilFit.registrate()
-                .tileEntity("crucible", InfestingLeavesTile::new)
+                .tileEntity("infesting_leaves", InfestingLeavesTile::new)
                 .validBlocks(NonNullSupplier.of(NF_Blocks.INFESTING_LEAVES))
                 .register();
         }

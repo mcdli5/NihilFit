@@ -23,16 +23,19 @@ public final class BlockReplacerItem extends Item {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
             BlockState oldBlockState = context.getWorld().getBlockState(context.getPos());
+            Block oldBlock = oldBlockState.getBlock();
 
-            if (checker.apply(oldBlockState.getBlock())) {
+            if (checker.apply(oldBlock)) {
                 context.getItem().shrink(1);
 
-                Block.replaceBlock(
-                    oldBlockState,
-                    newBlock.getDefaultState()
+                BlockState newBlockState = newBlock.getDefaultState();
+                if (oldBlock instanceof LeavesBlock) {
+                    newBlockState = newBlockState
                         .with(LeavesBlock.PERSISTENT, oldBlockState.get(LeavesBlock.PERSISTENT))
-                        .with(LeavesBlock.DISTANCE, oldBlockState.get(LeavesBlock.DISTANCE)),
-                    context.getWorld(), context.getPos(), 1);
+                        .with(LeavesBlock.DISTANCE, oldBlockState.get(LeavesBlock.DISTANCE));
+                }
+
+                Block.replaceBlock(oldBlockState, newBlockState, context.getWorld(), context.getPos(), 1);
 
                 return ActionResultType.SUCCESS;
             }
